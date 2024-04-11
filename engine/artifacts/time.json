@@ -1,0 +1,3197 @@
+{
+    "April": {
+        "1": {
+            "day": "FRI",
+            "special": 1,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 1300
+                },
+                {
+                    "hour": 1,
+                    "num_req": 17
+                },
+                {
+                    "hour": 2,
+                    "num_req": 27
+                },
+                {
+                    "hour": 3,
+                    "num_req": 14
+                },
+                {
+                    "hour": 4,
+                    "num_req": 24
+                },
+                {
+                    "hour": 5,
+                    "num_req": 37
+                },
+                {
+                    "hour": 6,
+                    "num_req": 16
+                },
+                {
+                    "hour": 7,
+                    "num_req": 20
+                },
+                {
+                    "hour": 8,
+                    "num_req": 12
+                },
+                {
+                    "hour": 9,
+                    "num_req": 49
+                },
+                {
+                    "hour": 10,
+                    "num_req": 32
+                },
+                {
+                    "hour": 11,
+                    "num_req": 44
+                },
+                {
+                    "hour": 12,
+                    "num_req": 524
+                },
+                {
+                    "hour": 13,
+                    "num_req": 2152
+                },
+                {
+                    "hour": 14,
+                    "num_req": 3707
+                },
+                {
+                    "hour": 15,
+                    "num_req": 1790
+                },
+                {
+                    "hour": 16,
+                    "num_req": 834
+                },
+                {
+                    "hour": 17,
+                    "num_req": 1689
+                },
+                {
+                    "hour": 18,
+                    "num_req": 3680
+                },
+                {
+                    "hour": 19,
+                    "num_req": 1677
+                },
+                {
+                    "hour": 20,
+                    "num_req": 458
+                },
+                {
+                    "hour": 21,
+                    "num_req": 37
+                },
+                {
+                    "hour": 22,
+                    "num_req": 16
+                },
+                {
+                    "hour": 23,
+                    "num_req": 41
+                }
+            ]
+        },
+        "2": {
+            "day": "SAT",
+            "special": 1,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 45
+                },
+                {
+                    "hour": 1,
+                    "num_req": 31
+                },
+                {
+                    "hour": 2,
+                    "num_req": 47
+                },
+                {
+                    "hour": 3,
+                    "num_req": 22
+                },
+                {
+                    "hour": 4,
+                    "num_req": 33
+                },
+                {
+                    "hour": 5,
+                    "num_req": 19
+                },
+                {
+                    "hour": 6,
+                    "num_req": 25
+                },
+                {
+                    "hour": 7,
+                    "num_req": 32
+                },
+                {
+                    "hour": 8,
+                    "num_req": 42
+                },
+                {
+                    "hour": 9,
+                    "num_req": 46
+                },
+                {
+                    "hour": 10,
+                    "num_req": 36
+                },
+                {
+                    "hour": 11,
+                    "num_req": 100
+                },
+                {
+                    "hour": 12,
+                    "num_req": 1205
+                },
+                {
+                    "hour": 13,
+                    "num_req": 4691
+                },
+                {
+                    "hour": 14,
+                    "num_req": 8254
+                },
+                {
+                    "hour": 15,
+                    "num_req": 4410
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1892
+                },
+                {
+                    "hour": 17,
+                    "num_req": 5557
+                },
+                {
+                    "hour": 18,
+                    "num_req": 6652
+                },
+                {
+                    "hour": 19,
+                    "num_req": 5150
+                },
+                {
+                    "hour": 20,
+                    "num_req": 973
+                },
+                {
+                    "hour": 21,
+                    "num_req": 78
+                },
+                {
+                    "hour": 22,
+                    "num_req": 11
+                },
+                {
+                    "hour": 23,
+                    "num_req": 48
+                }
+            ]
+        },
+        "3": {
+            "day": "SUN",
+            "special": 1,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 16
+                },
+                {
+                    "hour": 1,
+                    "num_req": 49
+                },
+                {
+                    "hour": 2,
+                    "num_req": 33
+                },
+                {
+                    "hour": 3,
+                    "num_req": 30
+                },
+                {
+                    "hour": 4,
+                    "num_req": 10
+                },
+                {
+                    "hour": 5,
+                    "num_req": 21
+                },
+                {
+                    "hour": 6,
+                    "num_req": 17
+                },
+                {
+                    "hour": 7,
+                    "num_req": 14
+                },
+                {
+                    "hour": 8,
+                    "num_req": 12
+                },
+                {
+                    "hour": 9,
+                    "num_req": 17
+                },
+                {
+                    "hour": 10,
+                    "num_req": 42
+                },
+                {
+                    "hour": 11,
+                    "num_req": 99
+                },
+                {
+                    "hour": 12,
+                    "num_req": 871
+                },
+                {
+                    "hour": 13,
+                    "num_req": 5325
+                },
+                {
+                    "hour": 14,
+                    "num_req": 7931
+                },
+                {
+                    "hour": 15,
+                    "num_req": 4625
+                },
+                {
+                    "hour": 16,
+                    "num_req": 2146
+                },
+                {
+                    "hour": 17,
+                    "num_req": 4194
+                },
+                {
+                    "hour": 18,
+                    "num_req": 6609
+                },
+                {
+                    "hour": 19,
+                    "num_req": 4550
+                },
+                {
+                    "hour": 20,
+                    "num_req": 994
+                },
+                {
+                    "hour": 21,
+                    "num_req": 90
+                },
+                {
+                    "hour": 22,
+                    "num_req": 27
+                },
+                {
+                    "hour": 23,
+                    "num_req": 43
+                }
+            ]
+        },
+        "4": {
+            "day": "MON",
+            "special": 0,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 42
+                },
+                {
+                    "hour": 1,
+                    "num_req": 26
+                },
+                {
+                    "hour": 2,
+                    "num_req": 37
+                },
+                {
+                    "hour": 3,
+                    "num_req": 20
+                },
+                {
+                    "hour": 4,
+                    "num_req": 19
+                },
+                {
+                    "hour": 5,
+                    "num_req": 11
+                },
+                {
+                    "hour": 6,
+                    "num_req": 16
+                },
+                {
+                    "hour": 7,
+                    "num_req": 27
+                },
+                {
+                    "hour": 8,
+                    "num_req": 26
+                },
+                {
+                    "hour": 9,
+                    "num_req": 34
+                },
+                {
+                    "hour": 10,
+                    "num_req": 13
+                },
+                {
+                    "hour": 11,
+                    "num_req": 20
+                },
+                {
+                    "hour": 12,
+                    "num_req": 240
+                },
+                {
+                    "hour": 13,
+                    "num_req": 949
+                },
+                {
+                    "hour": 14,
+                    "num_req": 1893
+                },
+                {
+                    "hour": 15,
+                    "num_req": 1081
+                },
+                {
+                    "hour": 16,
+                    "num_req": 497
+                },
+                {
+                    "hour": 17,
+                    "num_req": 999
+                },
+                {
+                    "hour": 18,
+                    "num_req": 1454
+                },
+                {
+                    "hour": 19,
+                    "num_req": 1091
+                },
+                {
+                    "hour": 20,
+                    "num_req": 222
+                },
+                {
+                    "hour": 21,
+                    "num_req": 17
+                },
+                {
+                    "hour": 22,
+                    "num_req": 33
+                },
+                {
+                    "hour": 23,
+                    "num_req": 50
+                }
+            ]
+        },
+        "5": {
+            "day": "TUE",
+            "special": 0,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 31
+                },
+                {
+                    "hour": 1,
+                    "num_req": 32
+                },
+                {
+                    "hour": 2,
+                    "num_req": 19
+                },
+                {
+                    "hour": 3,
+                    "num_req": 26
+                },
+                {
+                    "hour": 4,
+                    "num_req": 45
+                },
+                {
+                    "hour": 5,
+                    "num_req": 26
+                },
+                {
+                    "hour": 6,
+                    "num_req": 42
+                },
+                {
+                    "hour": 7,
+                    "num_req": 28
+                },
+                {
+                    "hour": 8,
+                    "num_req": 38
+                },
+                {
+                    "hour": 9,
+                    "num_req": 20
+                },
+                {
+                    "hour": 10,
+                    "num_req": 13
+                },
+                {
+                    "hour": 11,
+                    "num_req": 64
+                },
+                {
+                    "hour": 12,
+                    "num_req": 906
+                },
+                {
+                    "hour": 13,
+                    "num_req": 2927
+                },
+                {
+                    "hour": 14,
+                    "num_req": 5291
+                },
+                {
+                    "hour": 15,
+                    "num_req": 3348
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1786
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3270
+                },
+                {
+                    "hour": 18,
+                    "num_req": 6393
+                },
+                {
+                    "hour": 19,
+                    "num_req": 3254
+                },
+                {
+                    "hour": 20,
+                    "num_req": 855
+                },
+                {
+                    "hour": 21,
+                    "num_req": 75
+                },
+                {
+                    "hour": 22,
+                    "num_req": 35
+                },
+                {
+                    "hour": 23,
+                    "num_req": 11
+                }
+            ]
+        },
+        "6": {
+            "day": "WED",
+            "special": 1,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 27
+                },
+                {
+                    "hour": 1,
+                    "num_req": 36
+                },
+                {
+                    "hour": 2,
+                    "num_req": 35
+                },
+                {
+                    "hour": 3,
+                    "num_req": 41
+                },
+                {
+                    "hour": 4,
+                    "num_req": 49
+                },
+                {
+                    "hour": 5,
+                    "num_req": 13
+                },
+                {
+                    "hour": 6,
+                    "num_req": 40
+                },
+                {
+                    "hour": 7,
+                    "num_req": 16
+                },
+                {
+                    "hour": 8,
+                    "num_req": 32
+                },
+                {
+                    "hour": 9,
+                    "num_req": 21
+                },
+                {
+                    "hour": 10,
+                    "num_req": 36
+                },
+                {
+                    "hour": 11,
+                    "num_req": 85
+                },
+                {
+                    "hour": 12,
+                    "num_req": 1032
+                },
+                {
+                    "hour": 13,
+                    "num_req": 5020
+                },
+                {
+                    "hour": 14,
+                    "num_req": 6065
+                },
+                {
+                    "hour": 15,
+                    "num_req": 5506
+                },
+                {
+                    "hour": 16,
+                    "num_req": 2323
+                },
+                {
+                    "hour": 17,
+                    "num_req": 4526
+                },
+                {
+                    "hour": 18,
+                    "num_req": 8167
+                },
+                {
+                    "hour": 19,
+                    "num_req": 5236
+                },
+                {
+                    "hour": 20,
+                    "num_req": 1056
+                },
+                {
+                    "hour": 21,
+                    "num_req": 90
+                },
+                {
+                    "hour": 22,
+                    "num_req": 10
+                },
+                {
+                    "hour": 23,
+                    "num_req": 34
+                }
+            ]
+        },
+        "7": {
+            "day": "THU",
+            "special": 0,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 47
+                },
+                {
+                    "hour": 1,
+                    "num_req": 19
+                },
+                {
+                    "hour": 2,
+                    "num_req": 46
+                },
+                {
+                    "hour": 3,
+                    "num_req": 13
+                },
+                {
+                    "hour": 4,
+                    "num_req": 18
+                },
+                {
+                    "hour": 5,
+                    "num_req": 15
+                },
+                {
+                    "hour": 6,
+                    "num_req": 18
+                },
+                {
+                    "hour": 7,
+                    "num_req": 33
+                },
+                {
+                    "hour": 8,
+                    "num_req": 28
+                },
+                {
+                    "hour": 9,
+                    "num_req": 45
+                },
+                {
+                    "hour": 10,
+                    "num_req": 21
+                },
+                {
+                    "hour": 11,
+                    "num_req": 37
+                },
+                {
+                    "hour": 12,
+                    "num_req": 164
+                },
+                {
+                    "hour": 13,
+                    "num_req": 909
+                },
+                {
+                    "hour": 14,
+                    "num_req": 1109
+                },
+                {
+                    "hour": 15,
+                    "num_req": 828
+                },
+                {
+                    "hour": 16,
+                    "num_req": 385
+                },
+                {
+                    "hour": 17,
+                    "num_req": 662
+                },
+                {
+                    "hour": 18,
+                    "num_req": 1223
+                },
+                {
+                    "hour": 19,
+                    "num_req": 905
+                },
+                {
+                    "hour": 20,
+                    "num_req": 203
+                },
+                {
+                    "hour": 21,
+                    "num_req": 43
+                },
+                {
+                    "hour": 22,
+                    "num_req": 38
+                },
+                {
+                    "hour": 23,
+                    "num_req": 44
+                }
+            ]
+        },
+        "8": {
+            "day": "FRI",
+            "special": 1,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 39
+                },
+                {
+                    "hour": 1,
+                    "num_req": 10
+                },
+                {
+                    "hour": 2,
+                    "num_req": 30
+                },
+                {
+                    "hour": 3,
+                    "num_req": 38
+                },
+                {
+                    "hour": 4,
+                    "num_req": 30
+                },
+                {
+                    "hour": 5,
+                    "num_req": 32
+                },
+                {
+                    "hour": 6,
+                    "num_req": 29
+                },
+                {
+                    "hour": 7,
+                    "num_req": 17
+                },
+                {
+                    "hour": 8,
+                    "num_req": 42
+                },
+                {
+                    "hour": 9,
+                    "num_req": 26
+                },
+                {
+                    "hour": 10,
+                    "num_req": 38
+                },
+                {
+                    "hour": 11,
+                    "num_req": 73
+                },
+                {
+                    "hour": 12,
+                    "num_req": 977
+                },
+                {
+                    "hour": 13,
+                    "num_req": 3243
+                },
+                {
+                    "hour": 14,
+                    "num_req": 5907
+                },
+                {
+                    "hour": 15,
+                    "num_req": 3359
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1788
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3271
+                },
+                {
+                    "hour": 18,
+                    "num_req": 5402
+                },
+                {
+                    "hour": 19,
+                    "num_req": 3639
+                },
+                {
+                    "hour": 20,
+                    "num_req": 685
+                },
+                {
+                    "hour": 21,
+                    "num_req": 58
+                },
+                {
+                    "hour": 22,
+                    "num_req": 43
+                },
+                {
+                    "hour": 23,
+                    "num_req": 39
+                }
+            ]
+        },
+        "9": {
+            "day": "SAT",
+            "special": 1,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 33
+                },
+                {
+                    "hour": 1,
+                    "num_req": 46
+                },
+                {
+                    "hour": 2,
+                    "num_req": 22
+                },
+                {
+                    "hour": 3,
+                    "num_req": 41
+                },
+                {
+                    "hour": 4,
+                    "num_req": 28
+                },
+                {
+                    "hour": 5,
+                    "num_req": 24
+                },
+                {
+                    "hour": 6,
+                    "num_req": 18
+                },
+                {
+                    "hour": 7,
+                    "num_req": 42
+                },
+                {
+                    "hour": 8,
+                    "num_req": 38
+                },
+                {
+                    "hour": 9,
+                    "num_req": 44
+                },
+                {
+                    "hour": 10,
+                    "num_req": 27
+                },
+                {
+                    "hour": 11,
+                    "num_req": 48
+                },
+                {
+                    "hour": 12,
+                    "num_req": 544
+                },
+                {
+                    "hour": 13,
+                    "num_req": 2480
+                },
+                {
+                    "hour": 14,
+                    "num_req": 4821
+                },
+                {
+                    "hour": 15,
+                    "num_req": 2537
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1135
+                },
+                {
+                    "hour": 17,
+                    "num_req": 2683
+                },
+                {
+                    "hour": 18,
+                    "num_req": 3667
+                },
+                {
+                    "hour": 19,
+                    "num_req": 2386
+                },
+                {
+                    "hour": 20,
+                    "num_req": 626
+                },
+                {
+                    "hour": 21,
+                    "num_req": 49
+                },
+                {
+                    "hour": 22,
+                    "num_req": 11
+                },
+                {
+                    "hour": 23,
+                    "num_req": 12
+                }
+            ]
+        },
+        "10": {
+            "day": "SUN",
+            "special": 0,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 47
+                },
+                {
+                    "hour": 1,
+                    "num_req": 46
+                },
+                {
+                    "hour": 2,
+                    "num_req": 21
+                },
+                {
+                    "hour": 3,
+                    "num_req": 31
+                },
+                {
+                    "hour": 4,
+                    "num_req": 40
+                },
+                {
+                    "hour": 5,
+                    "num_req": 41
+                },
+                {
+                    "hour": 6,
+                    "num_req": 10
+                },
+                {
+                    "hour": 7,
+                    "num_req": 10
+                },
+                {
+                    "hour": 8,
+                    "num_req": 44
+                },
+                {
+                    "hour": 9,
+                    "num_req": 19
+                },
+                {
+                    "hour": 10,
+                    "num_req": 20
+                },
+                {
+                    "hour": 11,
+                    "num_req": 19
+                },
+                {
+                    "hour": 12,
+                    "num_req": 191
+                },
+                {
+                    "hour": 13,
+                    "num_req": 1098
+                },
+                {
+                    "hour": 14,
+                    "num_req": 1295
+                },
+                {
+                    "hour": 15,
+                    "num_req": 1036
+                },
+                {
+                    "hour": 16,
+                    "num_req": 380
+                },
+                {
+                    "hour": 17,
+                    "num_req": 1041
+                },
+                {
+                    "hour": 18,
+                    "num_req": 1622
+                },
+                {
+                    "hour": 19,
+                    "num_req": 1059
+                },
+                {
+                    "hour": 20,
+                    "num_req": 231
+                },
+                {
+                    "hour": 21,
+                    "num_req": 30
+                },
+                {
+                    "hour": 22,
+                    "num_req": 30
+                },
+                {
+                    "hour": 23,
+                    "num_req": 11
+                }
+            ]
+        },
+        "11": {
+            "day": "MON",
+            "special": 1,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 49
+                },
+                {
+                    "hour": 1,
+                    "num_req": 49
+                },
+                {
+                    "hour": 2,
+                    "num_req": 16
+                },
+                {
+                    "hour": 3,
+                    "num_req": 39
+                },
+                {
+                    "hour": 4,
+                    "num_req": 10
+                },
+                {
+                    "hour": 5,
+                    "num_req": 26
+                },
+                {
+                    "hour": 6,
+                    "num_req": 34
+                },
+                {
+                    "hour": 7,
+                    "num_req": 34
+                },
+                {
+                    "hour": 8,
+                    "num_req": 43
+                },
+                {
+                    "hour": 9,
+                    "num_req": 12
+                },
+                {
+                    "hour": 10,
+                    "num_req": 49
+                },
+                {
+                    "hour": 11,
+                    "num_req": 73
+                },
+                {
+                    "hour": 12,
+                    "num_req": 690
+                },
+                {
+                    "hour": 13,
+                    "num_req": 3177
+                },
+                {
+                    "hour": 14,
+                    "num_req": 4961
+                },
+                {
+                    "hour": 15,
+                    "num_req": 3310
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1631
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3987
+                },
+                {
+                    "hour": 18,
+                    "num_req": 5128
+                },
+                {
+                    "hour": 19,
+                    "num_req": 2793
+                },
+                {
+                    "hour": 20,
+                    "num_req": 649
+                },
+                {
+                    "hour": 21,
+                    "num_req": 70
+                },
+                {
+                    "hour": 22,
+                    "num_req": 19
+                },
+                {
+                    "hour": 23,
+                    "num_req": 46
+                }
+            ]
+        },
+        "12": {
+            "day": "TUE",
+            "special": 0,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 37
+                },
+                {
+                    "hour": 1,
+                    "num_req": 14
+                },
+                {
+                    "hour": 2,
+                    "num_req": 25
+                },
+                {
+                    "hour": 3,
+                    "num_req": 12
+                },
+                {
+                    "hour": 4,
+                    "num_req": 16
+                },
+                {
+                    "hour": 5,
+                    "num_req": 15
+                },
+                {
+                    "hour": 6,
+                    "num_req": 33
+                },
+                {
+                    "hour": 7,
+                    "num_req": 29
+                },
+                {
+                    "hour": 8,
+                    "num_req": 27
+                },
+                {
+                    "hour": 9,
+                    "num_req": 12
+                },
+                {
+                    "hour": 10,
+                    "num_req": 22
+                },
+                {
+                    "hour": 11,
+                    "num_req": 87
+                },
+                {
+                    "hour": 12,
+                    "num_req": 1146
+                },
+                {
+                    "hour": 13,
+                    "num_req": 4005
+                },
+                {
+                    "hour": 14,
+                    "num_req": 7373
+                },
+                {
+                    "hour": 15,
+                    "num_req": 3810
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1546
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3764
+                },
+                {
+                    "hour": 18,
+                    "num_req": 6354
+                },
+                {
+                    "hour": 19,
+                    "num_req": 4682
+                },
+                {
+                    "hour": 20,
+                    "num_req": 967
+                },
+                {
+                    "hour": 21,
+                    "num_req": 83
+                },
+                {
+                    "hour": 22,
+                    "num_req": 31
+                },
+                {
+                    "hour": 23,
+                    "num_req": 20
+                }
+            ]
+        },
+        "13": {
+            "day": "WED",
+            "special": 1,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 13
+                },
+                {
+                    "hour": 1,
+                    "num_req": 26
+                },
+                {
+                    "hour": 2,
+                    "num_req": 29
+                },
+                {
+                    "hour": 3,
+                    "num_req": 34
+                },
+                {
+                    "hour": 4,
+                    "num_req": 17
+                },
+                {
+                    "hour": 5,
+                    "num_req": 41
+                },
+                {
+                    "hour": 6,
+                    "num_req": 29
+                },
+                {
+                    "hour": 7,
+                    "num_req": 50
+                },
+                {
+                    "hour": 8,
+                    "num_req": 20
+                },
+                {
+                    "hour": 9,
+                    "num_req": 42
+                },
+                {
+                    "hour": 10,
+                    "num_req": 10
+                },
+                {
+                    "hour": 11,
+                    "num_req": 40
+                },
+                {
+                    "hour": 12,
+                    "num_req": 693
+                },
+                {
+                    "hour": 13,
+                    "num_req": 2115
+                },
+                {
+                    "hour": 14,
+                    "num_req": 4664
+                },
+                {
+                    "hour": 15,
+                    "num_req": 2259
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1045
+                },
+                {
+                    "hour": 17,
+                    "num_req": 2371
+                },
+                {
+                    "hour": 18,
+                    "num_req": 4514
+                },
+                {
+                    "hour": 19,
+                    "num_req": 2298
+                },
+                {
+                    "hour": 20,
+                    "num_req": 578
+                },
+                {
+                    "hour": 21,
+                    "num_req": 47
+                },
+                {
+                    "hour": 22,
+                    "num_req": 19
+                },
+                {
+                    "hour": 23,
+                    "num_req": 15
+                }
+            ]
+        },
+        "14": {
+            "day": "THU",
+            "special": 0,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 26
+                },
+                {
+                    "hour": 1,
+                    "num_req": 21
+                },
+                {
+                    "hour": 2,
+                    "num_req": 31
+                },
+                {
+                    "hour": 3,
+                    "num_req": 26
+                },
+                {
+                    "hour": 4,
+                    "num_req": 37
+                },
+                {
+                    "hour": 5,
+                    "num_req": 33
+                },
+                {
+                    "hour": 6,
+                    "num_req": 46
+                },
+                {
+                    "hour": 7,
+                    "num_req": 41
+                },
+                {
+                    "hour": 8,
+                    "num_req": 46
+                },
+                {
+                    "hour": 9,
+                    "num_req": 24
+                },
+                {
+                    "hour": 10,
+                    "num_req": 47
+                },
+                {
+                    "hour": 11,
+                    "num_req": 23
+                },
+                {
+                    "hour": 12,
+                    "num_req": 267
+                },
+                {
+                    "hour": 13,
+                    "num_req": 885
+                },
+                {
+                    "hour": 14,
+                    "num_req": 1719
+                },
+                {
+                    "hour": 15,
+                    "num_req": 818
+                },
+                {
+                    "hour": 16,
+                    "num_req": 505
+                },
+                {
+                    "hour": 17,
+                    "num_req": 889
+                },
+                {
+                    "hour": 18,
+                    "num_req": 1594
+                },
+                {
+                    "hour": 19,
+                    "num_req": 894
+                },
+                {
+                    "hour": 20,
+                    "num_req": 243
+                },
+                {
+                    "hour": 21,
+                    "num_req": 18
+                },
+                {
+                    "hour": 22,
+                    "num_req": 26
+                },
+                {
+                    "hour": 23,
+                    "num_req": 47
+                }
+            ]
+        },
+        "15": {
+            "day": "FRI",
+            "special": 0,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 26
+                },
+                {
+                    "hour": 1,
+                    "num_req": 43
+                },
+                {
+                    "hour": 2,
+                    "num_req": 11
+                },
+                {
+                    "hour": 3,
+                    "num_req": 13
+                },
+                {
+                    "hour": 4,
+                    "num_req": 16
+                },
+                {
+                    "hour": 5,
+                    "num_req": 15
+                },
+                {
+                    "hour": 6,
+                    "num_req": 23
+                },
+                {
+                    "hour": 7,
+                    "num_req": 36
+                },
+                {
+                    "hour": 8,
+                    "num_req": 11
+                },
+                {
+                    "hour": 9,
+                    "num_req": 10
+                },
+                {
+                    "hour": 10,
+                    "num_req": 50
+                },
+                {
+                    "hour": 11,
+                    "num_req": 16
+                },
+                {
+                    "hour": 12,
+                    "num_req": 182
+                },
+                {
+                    "hour": 13,
+                    "num_req": 937
+                },
+                {
+                    "hour": 14,
+                    "num_req": 1208
+                },
+                {
+                    "hour": 15,
+                    "num_req": 884
+                },
+                {
+                    "hour": 16,
+                    "num_req": 341
+                },
+                {
+                    "hour": 17,
+                    "num_req": 666
+                },
+                {
+                    "hour": 18,
+                    "num_req": 1245
+                },
+                {
+                    "hour": 19,
+                    "num_req": 892
+                },
+                {
+                    "hour": 20,
+                    "num_req": 177
+                },
+                {
+                    "hour": 21,
+                    "num_req": 37
+                },
+                {
+                    "hour": 22,
+                    "num_req": 38
+                },
+                {
+                    "hour": 23,
+                    "num_req": 27
+                }
+            ]
+        },
+        "16": {
+            "day": "SAT",
+            "special": 0,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 18
+                },
+                {
+                    "hour": 1,
+                    "num_req": 45
+                },
+                {
+                    "hour": 2,
+                    "num_req": 23
+                },
+                {
+                    "hour": 3,
+                    "num_req": 31
+                },
+                {
+                    "hour": 4,
+                    "num_req": 30
+                },
+                {
+                    "hour": 5,
+                    "num_req": 22
+                },
+                {
+                    "hour": 6,
+                    "num_req": 32
+                },
+                {
+                    "hour": 7,
+                    "num_req": 35
+                },
+                {
+                    "hour": 8,
+                    "num_req": 16
+                },
+                {
+                    "hour": 9,
+                    "num_req": 26
+                },
+                {
+                    "hour": 10,
+                    "num_req": 37
+                },
+                {
+                    "hour": 11,
+                    "num_req": 63
+                },
+                {
+                    "hour": 12,
+                    "num_req": 898
+                },
+                {
+                    "hour": 13,
+                    "num_req": 3104
+                },
+                {
+                    "hour": 14,
+                    "num_req": 5666
+                },
+                {
+                    "hour": 15,
+                    "num_req": 3293
+                },
+                {
+                    "hour": 16,
+                    "num_req": 2032
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3564
+                },
+                {
+                    "hour": 18,
+                    "num_req": 5262
+                },
+                {
+                    "hour": 19,
+                    "num_req": 4349
+                },
+                {
+                    "hour": 20,
+                    "num_req": 763
+                },
+                {
+                    "hour": 21,
+                    "num_req": 70
+                },
+                {
+                    "hour": 22,
+                    "num_req": 38
+                },
+                {
+                    "hour": 23,
+                    "num_req": 21
+                }
+            ]
+        },
+        "17": {
+            "day": "SUN",
+            "special": 1,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 49
+                },
+                {
+                    "hour": 1,
+                    "num_req": 20
+                },
+                {
+                    "hour": 2,
+                    "num_req": 13
+                },
+                {
+                    "hour": 3,
+                    "num_req": 13
+                },
+                {
+                    "hour": 4,
+                    "num_req": 27
+                },
+                {
+                    "hour": 5,
+                    "num_req": 11
+                },
+                {
+                    "hour": 6,
+                    "num_req": 45
+                },
+                {
+                    "hour": 7,
+                    "num_req": 14
+                },
+                {
+                    "hour": 8,
+                    "num_req": 18
+                },
+                {
+                    "hour": 9,
+                    "num_req": 50
+                },
+                {
+                    "hour": 10,
+                    "num_req": 41
+                },
+                {
+                    "hour": 11,
+                    "num_req": 47
+                },
+                {
+                    "hour": 12,
+                    "num_req": 347
+                },
+                {
+                    "hour": 13,
+                    "num_req": 1935
+                },
+                {
+                    "hour": 14,
+                    "num_req": 3540
+                },
+                {
+                    "hour": 15,
+                    "num_req": 2095
+                },
+                {
+                    "hour": 16,
+                    "num_req": 728
+                },
+                {
+                    "hour": 17,
+                    "num_req": 1838
+                },
+                {
+                    "hour": 18,
+                    "num_req": 2957
+                },
+                {
+                    "hour": 19,
+                    "num_req": 1971
+                },
+                {
+                    "hour": 20,
+                    "num_req": 409
+                },
+                {
+                    "hour": 21,
+                    "num_req": 38
+                },
+                {
+                    "hour": 22,
+                    "num_req": 25
+                },
+                {
+                    "hour": 23,
+                    "num_req": 38
+                }
+            ]
+        },
+        "18": {
+            "day": "MON",
+            "special": 1,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 39
+                },
+                {
+                    "hour": 1,
+                    "num_req": 22
+                },
+                {
+                    "hour": 2,
+                    "num_req": 20
+                },
+                {
+                    "hour": 3,
+                    "num_req": 41
+                },
+                {
+                    "hour": 4,
+                    "num_req": 30
+                },
+                {
+                    "hour": 5,
+                    "num_req": 35
+                },
+                {
+                    "hour": 6,
+                    "num_req": 12
+                },
+                {
+                    "hour": 7,
+                    "num_req": 19
+                },
+                {
+                    "hour": 8,
+                    "num_req": 45
+                },
+                {
+                    "hour": 9,
+                    "num_req": 47
+                },
+                {
+                    "hour": 10,
+                    "num_req": 48
+                },
+                {
+                    "hour": 11,
+                    "num_req": 65
+                },
+                {
+                    "hour": 12,
+                    "num_req": 868
+                },
+                {
+                    "hour": 13,
+                    "num_req": 4647
+                },
+                {
+                    "hour": 14,
+                    "num_req": 7755
+                },
+                {
+                    "hour": 15,
+                    "num_req": 4223
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1819
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3931
+                },
+                {
+                    "hour": 18,
+                    "num_req": 6910
+                },
+                {
+                    "hour": 19,
+                    "num_req": 3298
+                },
+                {
+                    "hour": 20,
+                    "num_req": 843
+                },
+                {
+                    "hour": 21,
+                    "num_req": 86
+                },
+                {
+                    "hour": 22,
+                    "num_req": 38
+                },
+                {
+                    "hour": 23,
+                    "num_req": 24
+                }
+            ]
+        },
+        "19": {
+            "day": "TUE",
+            "special": 0,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 28
+                },
+                {
+                    "hour": 1,
+                    "num_req": 28
+                },
+                {
+                    "hour": 2,
+                    "num_req": 29
+                },
+                {
+                    "hour": 3,
+                    "num_req": 41
+                },
+                {
+                    "hour": 4,
+                    "num_req": 49
+                },
+                {
+                    "hour": 5,
+                    "num_req": 48
+                },
+                {
+                    "hour": 6,
+                    "num_req": 16
+                },
+                {
+                    "hour": 7,
+                    "num_req": 48
+                },
+                {
+                    "hour": 8,
+                    "num_req": 39
+                },
+                {
+                    "hour": 9,
+                    "num_req": 22
+                },
+                {
+                    "hour": 10,
+                    "num_req": 25
+                },
+                {
+                    "hour": 11,
+                    "num_req": 41
+                },
+                {
+                    "hour": 12,
+                    "num_req": 183
+                },
+                {
+                    "hour": 13,
+                    "num_req": 1085
+                },
+                {
+                    "hour": 14,
+                    "num_req": 1543
+                },
+                {
+                    "hour": 15,
+                    "num_req": 1178
+                },
+                {
+                    "hour": 16,
+                    "num_req": 401
+                },
+                {
+                    "hour": 17,
+                    "num_req": 973
+                },
+                {
+                    "hour": 18,
+                    "num_req": 1600
+                },
+                {
+                    "hour": 19,
+                    "num_req": 1058
+                },
+                {
+                    "hour": 20,
+                    "num_req": 235
+                },
+                {
+                    "hour": 21,
+                    "num_req": 49
+                },
+                {
+                    "hour": 22,
+                    "num_req": 24
+                },
+                {
+                    "hour": 23,
+                    "num_req": 24
+                }
+            ]
+        },
+        "20": {
+            "day": "WED",
+            "special": 0,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 20
+                },
+                {
+                    "hour": 1,
+                    "num_req": 22
+                },
+                {
+                    "hour": 2,
+                    "num_req": 33
+                },
+                {
+                    "hour": 3,
+                    "num_req": 49
+                },
+                {
+                    "hour": 4,
+                    "num_req": 44
+                },
+                {
+                    "hour": 5,
+                    "num_req": 39
+                },
+                {
+                    "hour": 6,
+                    "num_req": 17
+                },
+                {
+                    "hour": 7,
+                    "num_req": 16
+                },
+                {
+                    "hour": 8,
+                    "num_req": 40
+                },
+                {
+                    "hour": 9,
+                    "num_req": 38
+                },
+                {
+                    "hour": 10,
+                    "num_req": 33
+                },
+                {
+                    "hour": 11,
+                    "num_req": 18
+                },
+                {
+                    "hour": 12,
+                    "num_req": 202
+                },
+                {
+                    "hour": 13,
+                    "num_req": 868
+                },
+                {
+                    "hour": 14,
+                    "num_req": 1599
+                },
+                {
+                    "hour": 15,
+                    "num_req": 1218
+                },
+                {
+                    "hour": 16,
+                    "num_req": 436
+                },
+                {
+                    "hour": 17,
+                    "num_req": 1221
+                },
+                {
+                    "hour": 18,
+                    "num_req": 1630
+                },
+                {
+                    "hour": 19,
+                    "num_req": 1209
+                },
+                {
+                    "hour": 20,
+                    "num_req": 229
+                },
+                {
+                    "hour": 21,
+                    "num_req": 18
+                },
+                {
+                    "hour": 22,
+                    "num_req": 31
+                },
+                {
+                    "hour": 23,
+                    "num_req": 41
+                }
+            ]
+        },
+        "21": {
+            "day": "THU",
+            "special": 1,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 17
+                },
+                {
+                    "hour": 1,
+                    "num_req": 32
+                },
+                {
+                    "hour": 2,
+                    "num_req": 14
+                },
+                {
+                    "hour": 3,
+                    "num_req": 35
+                },
+                {
+                    "hour": 4,
+                    "num_req": 32
+                },
+                {
+                    "hour": 5,
+                    "num_req": 14
+                },
+                {
+                    "hour": 6,
+                    "num_req": 22
+                },
+                {
+                    "hour": 7,
+                    "num_req": 29
+                },
+                {
+                    "hour": 8,
+                    "num_req": 38
+                },
+                {
+                    "hour": 9,
+                    "num_req": 18
+                },
+                {
+                    "hour": 10,
+                    "num_req": 18
+                },
+                {
+                    "hour": 11,
+                    "num_req": 99
+                },
+                {
+                    "hour": 12,
+                    "num_req": 1255
+                },
+                {
+                    "hour": 13,
+                    "num_req": 5521
+                },
+                {
+                    "hour": 14,
+                    "num_req": 6546
+                },
+                {
+                    "hour": 15,
+                    "num_req": 5575
+                },
+                {
+                    "hour": 16,
+                    "num_req": 2346
+                },
+                {
+                    "hour": 17,
+                    "num_req": 4666
+                },
+                {
+                    "hour": 18,
+                    "num_req": 7315
+                },
+                {
+                    "hour": 19,
+                    "num_req": 3996
+                },
+                {
+                    "hour": 20,
+                    "num_req": 1112
+                },
+                {
+                    "hour": 21,
+                    "num_req": 97
+                },
+                {
+                    "hour": 22,
+                    "num_req": 41
+                },
+                {
+                    "hour": 23,
+                    "num_req": 48
+                }
+            ]
+        },
+        "22": {
+            "day": "FRI",
+            "special": 0,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 39
+                },
+                {
+                    "hour": 1,
+                    "num_req": 20
+                },
+                {
+                    "hour": 2,
+                    "num_req": 16
+                },
+                {
+                    "hour": 3,
+                    "num_req": 19
+                },
+                {
+                    "hour": 4,
+                    "num_req": 11
+                },
+                {
+                    "hour": 5,
+                    "num_req": 42
+                },
+                {
+                    "hour": 6,
+                    "num_req": 42
+                },
+                {
+                    "hour": 7,
+                    "num_req": 22
+                },
+                {
+                    "hour": 8,
+                    "num_req": 13
+                },
+                {
+                    "hour": 9,
+                    "num_req": 12
+                },
+                {
+                    "hour": 10,
+                    "num_req": 46
+                },
+                {
+                    "hour": 11,
+                    "num_req": 36
+                },
+                {
+                    "hour": 12,
+                    "num_req": 163
+                },
+                {
+                    "hour": 13,
+                    "num_req": 853
+                },
+                {
+                    "hour": 14,
+                    "num_req": 1050
+                },
+                {
+                    "hour": 15,
+                    "num_req": 893
+                },
+                {
+                    "hour": 16,
+                    "num_req": 369
+                },
+                {
+                    "hour": 17,
+                    "num_req": 691
+                },
+                {
+                    "hour": 18,
+                    "num_req": 1114
+                },
+                {
+                    "hour": 19,
+                    "num_req": 644
+                },
+                {
+                    "hour": 20,
+                    "num_req": 166
+                },
+                {
+                    "hour": 21,
+                    "num_req": 28
+                },
+                {
+                    "hour": 22,
+                    "num_req": 43
+                },
+                {
+                    "hour": 23,
+                    "num_req": 21
+                }
+            ]
+        },
+        "23": {
+            "day": "SAT",
+            "special": 1,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 26
+                },
+                {
+                    "hour": 1,
+                    "num_req": 30
+                },
+                {
+                    "hour": 2,
+                    "num_req": 44
+                },
+                {
+                    "hour": 3,
+                    "num_req": 44
+                },
+                {
+                    "hour": 4,
+                    "num_req": 21
+                },
+                {
+                    "hour": 5,
+                    "num_req": 35
+                },
+                {
+                    "hour": 6,
+                    "num_req": 44
+                },
+                {
+                    "hour": 7,
+                    "num_req": 19
+                },
+                {
+                    "hour": 8,
+                    "num_req": 26
+                },
+                {
+                    "hour": 9,
+                    "num_req": 48
+                },
+                {
+                    "hour": 10,
+                    "num_req": 15
+                },
+                {
+                    "hour": 11,
+                    "num_req": 59
+                },
+                {
+                    "hour": 12,
+                    "num_req": 499
+                },
+                {
+                    "hour": 13,
+                    "num_req": 2498
+                },
+                {
+                    "hour": 14,
+                    "num_req": 4001
+                },
+                {
+                    "hour": 15,
+                    "num_req": 3128
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1195
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3220
+                },
+                {
+                    "hour": 18,
+                    "num_req": 3809
+                },
+                {
+                    "hour": 19,
+                    "num_req": 2617
+                },
+                {
+                    "hour": 20,
+                    "num_req": 619
+                },
+                {
+                    "hour": 21,
+                    "num_req": 43
+                },
+                {
+                    "hour": 22,
+                    "num_req": 24
+                },
+                {
+                    "hour": 23,
+                    "num_req": 28
+                }
+            ]
+        },
+        "24": {
+            "day": "SUN",
+            "special": 1,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 21
+                },
+                {
+                    "hour": 1,
+                    "num_req": 44
+                },
+                {
+                    "hour": 2,
+                    "num_req": 32
+                },
+                {
+                    "hour": 3,
+                    "num_req": 17
+                },
+                {
+                    "hour": 4,
+                    "num_req": 29
+                },
+                {
+                    "hour": 5,
+                    "num_req": 34
+                },
+                {
+                    "hour": 6,
+                    "num_req": 41
+                },
+                {
+                    "hour": 7,
+                    "num_req": 14
+                },
+                {
+                    "hour": 8,
+                    "num_req": 34
+                },
+                {
+                    "hour": 9,
+                    "num_req": 41
+                },
+                {
+                    "hour": 10,
+                    "num_req": 50
+                },
+                {
+                    "hour": 11,
+                    "num_req": 51
+                },
+                {
+                    "hour": 12,
+                    "num_req": 703
+                },
+                {
+                    "hour": 13,
+                    "num_req": 3886
+                },
+                {
+                    "hour": 14,
+                    "num_req": 6699
+                },
+                {
+                    "hour": 15,
+                    "num_req": 3463
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1288
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3996
+                },
+                {
+                    "hour": 18,
+                    "num_req": 4943
+                },
+                {
+                    "hour": 19,
+                    "num_req": 3631
+                },
+                {
+                    "hour": 20,
+                    "num_req": 629
+                },
+                {
+                    "hour": 21,
+                    "num_req": 55
+                },
+                {
+                    "hour": 22,
+                    "num_req": 37
+                },
+                {
+                    "hour": 23,
+                    "num_req": 40
+                }
+            ]
+        },
+        "25": {
+            "day": "MON",
+            "special": 0,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 12
+                },
+                {
+                    "hour": 1,
+                    "num_req": 13
+                },
+                {
+                    "hour": 2,
+                    "num_req": 35
+                },
+                {
+                    "hour": 3,
+                    "num_req": 22
+                },
+                {
+                    "hour": 4,
+                    "num_req": 10
+                },
+                {
+                    "hour": 5,
+                    "num_req": 21
+                },
+                {
+                    "hour": 6,
+                    "num_req": 22
+                },
+                {
+                    "hour": 7,
+                    "num_req": 14
+                },
+                {
+                    "hour": 8,
+                    "num_req": 38
+                },
+                {
+                    "hour": 9,
+                    "num_req": 28
+                },
+                {
+                    "hour": 10,
+                    "num_req": 36
+                },
+                {
+                    "hour": 11,
+                    "num_req": 41
+                },
+                {
+                    "hour": 12,
+                    "num_req": 240
+                },
+                {
+                    "hour": 13,
+                    "num_req": 987
+                },
+                {
+                    "hour": 14,
+                    "num_req": 1668
+                },
+                {
+                    "hour": 15,
+                    "num_req": 1029
+                },
+                {
+                    "hour": 16,
+                    "num_req": 519
+                },
+                {
+                    "hour": 17,
+                    "num_req": 1369
+                },
+                {
+                    "hour": 18,
+                    "num_req": 2061
+                },
+                {
+                    "hour": 19,
+                    "num_req": 1259
+                },
+                {
+                    "hour": 20,
+                    "num_req": 237
+                },
+                {
+                    "hour": 21,
+                    "num_req": 28
+                },
+                {
+                    "hour": 22,
+                    "num_req": 14
+                },
+                {
+                    "hour": 23,
+                    "num_req": 38
+                }
+            ]
+        },
+        "26": {
+            "day": "TUE",
+            "special": 1,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 13
+                },
+                {
+                    "hour": 1,
+                    "num_req": 11
+                },
+                {
+                    "hour": 2,
+                    "num_req": 35
+                },
+                {
+                    "hour": 3,
+                    "num_req": 31
+                },
+                {
+                    "hour": 4,
+                    "num_req": 38
+                },
+                {
+                    "hour": 5,
+                    "num_req": 21
+                },
+                {
+                    "hour": 6,
+                    "num_req": 11
+                },
+                {
+                    "hour": 7,
+                    "num_req": 27
+                },
+                {
+                    "hour": 8,
+                    "num_req": 14
+                },
+                {
+                    "hour": 9,
+                    "num_req": 16
+                },
+                {
+                    "hour": 10,
+                    "num_req": 44
+                },
+                {
+                    "hour": 11,
+                    "num_req": 51
+                },
+                {
+                    "hour": 12,
+                    "num_req": 521
+                },
+                {
+                    "hour": 13,
+                    "num_req": 2741
+                },
+                {
+                    "hour": 14,
+                    "num_req": 5189
+                },
+                {
+                    "hour": 15,
+                    "num_req": 2406
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1171
+                },
+                {
+                    "hour": 17,
+                    "num_req": 2399
+                },
+                {
+                    "hour": 18,
+                    "num_req": 4508
+                },
+                {
+                    "hour": 19,
+                    "num_req": 3165
+                },
+                {
+                    "hour": 20,
+                    "num_req": 606
+                },
+                {
+                    "hour": 21,
+                    "num_req": 47
+                },
+                {
+                    "hour": 22,
+                    "num_req": 35
+                },
+                {
+                    "hour": 23,
+                    "num_req": 44
+                }
+            ]
+        },
+        "27": {
+            "day": "WED",
+            "special": 1,
+            "marketing_campaign": 0,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 15
+                },
+                {
+                    "hour": 1,
+                    "num_req": 39
+                },
+                {
+                    "hour": 2,
+                    "num_req": 35
+                },
+                {
+                    "hour": 3,
+                    "num_req": 29
+                },
+                {
+                    "hour": 4,
+                    "num_req": 10
+                },
+                {
+                    "hour": 5,
+                    "num_req": 25
+                },
+                {
+                    "hour": 6,
+                    "num_req": 27
+                },
+                {
+                    "hour": 7,
+                    "num_req": 38
+                },
+                {
+                    "hour": 8,
+                    "num_req": 20
+                },
+                {
+                    "hour": 9,
+                    "num_req": 34
+                },
+                {
+                    "hour": 10,
+                    "num_req": 15
+                },
+                {
+                    "hour": 11,
+                    "num_req": 47
+                },
+                {
+                    "hour": 12,
+                    "num_req": 648
+                },
+                {
+                    "hour": 13,
+                    "num_req": 3399
+                },
+                {
+                    "hour": 14,
+                    "num_req": 5892
+                },
+                {
+                    "hour": 15,
+                    "num_req": 3639
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1266
+                },
+                {
+                    "hour": 17,
+                    "num_req": 2789
+                },
+                {
+                    "hour": 18,
+                    "num_req": 4499
+                },
+                {
+                    "hour": 19,
+                    "num_req": 3464
+                },
+                {
+                    "hour": 20,
+                    "num_req": 683
+                },
+                {
+                    "hour": 21,
+                    "num_req": 64
+                },
+                {
+                    "hour": 22,
+                    "num_req": 41
+                },
+                {
+                    "hour": 23,
+                    "num_req": 16
+                }
+            ]
+        },
+        "28": {
+            "day": "THU",
+            "special": 0,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 45
+                },
+                {
+                    "hour": 1,
+                    "num_req": 40
+                },
+                {
+                    "hour": 2,
+                    "num_req": 48
+                },
+                {
+                    "hour": 3,
+                    "num_req": 22
+                },
+                {
+                    "hour": 4,
+                    "num_req": 31
+                },
+                {
+                    "hour": 5,
+                    "num_req": 27
+                },
+                {
+                    "hour": 6,
+                    "num_req": 13
+                },
+                {
+                    "hour": 7,
+                    "num_req": 31
+                },
+                {
+                    "hour": 8,
+                    "num_req": 48
+                },
+                {
+                    "hour": 9,
+                    "num_req": 15
+                },
+                {
+                    "hour": 10,
+                    "num_req": 28
+                },
+                {
+                    "hour": 11,
+                    "num_req": 56
+                },
+                {
+                    "hour": 12,
+                    "num_req": 650
+                },
+                {
+                    "hour": 13,
+                    "num_req": 3517
+                },
+                {
+                    "hour": 14,
+                    "num_req": 6175
+                },
+                {
+                    "hour": 15,
+                    "num_req": 2888
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1472
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3939
+                },
+                {
+                    "hour": 18,
+                    "num_req": 6161
+                },
+                {
+                    "hour": 19,
+                    "num_req": 3659
+                },
+                {
+                    "hour": 20,
+                    "num_req": 590
+                },
+                {
+                    "hour": 21,
+                    "num_req": 66
+                },
+                {
+                    "hour": 22,
+                    "num_req": 41
+                },
+                {
+                    "hour": 23,
+                    "num_req": 41
+                }
+            ]
+        },
+        "29": {
+            "day": "FRI",
+            "special": 0,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 39
+                },
+                {
+                    "hour": 1,
+                    "num_req": 41
+                },
+                {
+                    "hour": 2,
+                    "num_req": 41
+                },
+                {
+                    "hour": 3,
+                    "num_req": 10
+                },
+                {
+                    "hour": 4,
+                    "num_req": 49
+                },
+                {
+                    "hour": 5,
+                    "num_req": 45
+                },
+                {
+                    "hour": 6,
+                    "num_req": 25
+                },
+                {
+                    "hour": 7,
+                    "num_req": 34
+                },
+                {
+                    "hour": 8,
+                    "num_req": 13
+                },
+                {
+                    "hour": 9,
+                    "num_req": 25
+                },
+                {
+                    "hour": 10,
+                    "num_req": 13
+                },
+                {
+                    "hour": 11,
+                    "num_req": 72
+                },
+                {
+                    "hour": 12,
+                    "num_req": 973
+                },
+                {
+                    "hour": 13,
+                    "num_req": 3497
+                },
+                {
+                    "hour": 14,
+                    "num_req": 5598
+                },
+                {
+                    "hour": 15,
+                    "num_req": 4148
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1809
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3228
+                },
+                {
+                    "hour": 18,
+                    "num_req": 6973
+                },
+                {
+                    "hour": 19,
+                    "num_req": 3996
+                },
+                {
+                    "hour": 20,
+                    "num_req": 792
+                },
+                {
+                    "hour": 21,
+                    "num_req": 72
+                },
+                {
+                    "hour": 22,
+                    "num_req": 50
+                },
+                {
+                    "hour": 23,
+                    "num_req": 27
+                }
+            ]
+        },
+        "30": {
+            "day": "SAT",
+            "special": 0,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 45
+                },
+                {
+                    "hour": 1,
+                    "num_req": 14
+                },
+                {
+                    "hour": 2,
+                    "num_req": 25
+                },
+                {
+                    "hour": 3,
+                    "num_req": 39
+                },
+                {
+                    "hour": 4,
+                    "num_req": 23
+                },
+                {
+                    "hour": 5,
+                    "num_req": 30
+                },
+                {
+                    "hour": 6,
+                    "num_req": 43
+                },
+                {
+                    "hour": 7,
+                    "num_req": 37
+                },
+                {
+                    "hour": 8,
+                    "num_req": 24
+                },
+                {
+                    "hour": 9,
+                    "num_req": 39
+                },
+                {
+                    "hour": 10,
+                    "num_req": 25
+                },
+                {
+                    "hour": 11,
+                    "num_req": 57
+                },
+                {
+                    "hour": 12,
+                    "num_req": 568
+                },
+                {
+                    "hour": 13,
+                    "num_req": 3033
+                },
+                {
+                    "hour": 14,
+                    "num_req": 4242
+                },
+                {
+                    "hour": 15,
+                    "num_req": 3509
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1147
+                },
+                {
+                    "hour": 17,
+                    "num_req": 3674
+                },
+                {
+                    "hour": 18,
+                    "num_req": 4329
+                },
+                {
+                    "hour": 19,
+                    "num_req": 2787
+                },
+                {
+                    "hour": 20,
+                    "num_req": 682
+                },
+                {
+                    "hour": 21,
+                    "num_req": 53
+                },
+                {
+                    "hour": 22,
+                    "num_req": 20
+                },
+                {
+                    "hour": 23,
+                    "num_req": 38
+                }
+            ]
+        },
+        "31": {
+            "day": "SUN",
+            "special": 1,
+            "marketing_campaign": 1,
+            "time_passage": [
+                {
+                    "hour": 0,
+                    "num_req": 36
+                },
+                {
+                    "hour": 1,
+                    "num_req": 11
+                },
+                {
+                    "hour": 2,
+                    "num_req": 40
+                },
+                {
+                    "hour": 3,
+                    "num_req": 12
+                },
+                {
+                    "hour": 4,
+                    "num_req": 45
+                },
+                {
+                    "hour": 5,
+                    "num_req": 44
+                },
+                {
+                    "hour": 6,
+                    "num_req": 44
+                },
+                {
+                    "hour": 7,
+                    "num_req": 14
+                },
+                {
+                    "hour": 8,
+                    "num_req": 41
+                },
+                {
+                    "hour": 9,
+                    "num_req": 41
+                },
+                {
+                    "hour": 10,
+                    "num_req": 19
+                },
+                {
+                    "hour": 11,
+                    "num_req": 53
+                },
+                {
+                    "hour": 12,
+                    "num_req": 700
+                },
+                {
+                    "hour": 13,
+                    "num_req": 2268
+                },
+                {
+                    "hour": 14,
+                    "num_req": 4966
+                },
+                {
+                    "hour": 15,
+                    "num_req": 2706
+                },
+                {
+                    "hour": 16,
+                    "num_req": 1475
+                },
+                {
+                    "hour": 17,
+                    "num_req": 2838
+                },
+                {
+                    "hour": 18,
+                    "num_req": 5271
+                },
+                {
+                    "hour": 19,
+                    "num_req": 2246
+                },
+                {
+                    "hour": 20,
+                    "num_req": 726
+                },
+                {
+                    "hour": 21,
+                    "num_req": 52
+                },
+                {
+                    "hour": 22,
+                    "num_req": 43
+                },
+                {
+                    "hour": 23,
+                    "num_req": 31
+                }
+            ]
+        }
+    }
+}

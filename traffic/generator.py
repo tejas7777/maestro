@@ -1,31 +1,79 @@
-from types.request import Request
+from traffic.utils.request import Request
 import random
 
 class TrafficGenerator():
+
+    request_params = {
+        "methods" : ['GET', 'POST', 'PUT', 'DELETE'],
+        "headers" : [{'User-Agent': 'Browser'}],
+        "content_types" : ['application/json'],
+        "routes" : ['/api/data', '/home', '/api/user'],
+        "data_examples" : ['{"key": "value"}']
+    }
+
+    computation_units = {
+        'GET': [20, 5],  # Example: mean=20, sd=5
+        'POST': [30, 10],
+        'PUT': [25, 7],
+        'DELETE': [15, 4]
+    }
+
     
-    def deterministicGenerator(self) -> list[Request]:
+    def deterministic(self, params) -> list[Request]:
         '''
         Go through a CSV file which will act as a reference to
         Generate how many and what type of requests
         '''
-        NotImplementedError("Not Implemented")
+        num_requests = params.get("num")
 
-    def stochasticGenerator(self,mean,sd,time) -> list[Request]:
+        output_list = []
+
+        for __ in range(num_requests):
+            #Select method based on Gaussian distribution
+            method_index = int(random.gauss(mu=1.5, sigma=1)) % len(self.request_params["methods"])
+            method = self.request_params["methods"][method_index]
+            
+            #Determine computation units for the selected method
+            mean, sd = self.computation_units[method]
+            computation = int(random.gauss(mean, sd))
+   
+            request = Request(
+                method=method,
+                header=random.choice(self.request_params["headers"]),
+                content_type=random.choice(self.request_params["content_types"]),
+                route=random.choice(self.request_params["routes"]),
+                data=random.choice(self.request_params["data_examples"]),
+                computation=computation,
+                time= params.get("time") if params.get("time") != None else None
+            )
+            output_list.append(request)
+
+        return output_list
+
+
+
+
+    def stochastic(self,params) -> list[Request]:
         '''
         A Gaussian Random Variable to generate
         How many and what type of requests
         '''
-        methods = ['GET', 'POST', 'PUT', 'DELETE']
-        headers = [{'User-Agent': 'Browser'}]
-        content_types = ['application/json']
-        routes = ['/api/data', '/home', '/api/user']
-        data_examples = ['{"key": "value"}']
 
-        num_requests = int(random.gauss(mean, sd))
+        num_requests = int(random.gauss(params.get("mean"), params.get("sd")))
+        method_index = int(random.gauss(mu=1.5, sigma=1)) % len(self.request_params["methods"])
 
-        method_index = int(random.gauss(mu=1.5, sigma=1)) % len(methods)
 
-        generator_output = []
+    def generator(self, mode, **params):
+
+        match mode:
+            case "DETERMINISTIC":
+                return self.deterministic(params)
+            case "STOCHASTIC":
+                return self.stochastic(params)
+            case __:
+                return None
+
+        
         
 
         
