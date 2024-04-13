@@ -1,11 +1,10 @@
-from types.request import Request
 
 class APIGateway():
     def __init__(self) -> None:
         pass
 
-    def processRequest(self, request: Request) -> None:
+    def processRequest(self, request) -> None:
         return self.routeRequest(request)
 
-    def routeRequest(self,request: Request) -> bool:
+    def routeRequest(self,request) -> bool:
         pass

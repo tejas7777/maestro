@@ -36,6 +36,9 @@ class TrafficGenerator():
             #Determine computation units for the selected method
             mean, sd = self.computation_units[method]
             computation = int(random.gauss(mean, sd))
+
+            processing_factor = 0.075  # This factor determines the conversion rate
+            processing_time = computation * processing_factor
    
             request = Request(
                 method=method,
@@ -44,7 +47,7 @@ class TrafficGenerator():
                 route=random.choice(self.request_params["routes"]),
                 data=random.choice(self.request_params["data_examples"]),
                 computation=computation,
-                time= params.get("time") if params.get("time") != None else None
+                time= processing_time
             )
             output_list.append(request)
 

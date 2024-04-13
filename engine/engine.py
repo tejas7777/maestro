@@ -2,6 +2,8 @@ from traffic.generator import TrafficGenerator
 import json
 import time
 import numpy as np
+from services.Chariot import Chariot
+import random
 
 class Engine():
 
@@ -39,15 +41,26 @@ class Engine():
                     total_req = 0
                     for minute, req_count in enumerate(requests_per_minute, start=1):
                         # Simulate passing of each minute
+                        # This is our every time step of the simulation
+                        # The logic of simulation should be enclosed here
                         print(f"Hour {hour_data['hour']} Minute {minute}: {req_count} requests")
-                        time.sleep(1)  # Simulating 1 minute as 1 real-world second
+
                         total_req += req_count
                         
-                        # Here you would handle each request simulation for this minute
-                        # This is where you might call your traffic generator, for example
-                        # self.traffic_generator.generate_requests(req_count)
                         requests = self.traffic_generator.generator(mode = "DETERMINISTIC", num = req_count )
-                        print(f"Requests generated: {len(requests)}")
+
+                        # TEMPERORY: Instantiate Service
+                        service = Chariot('chariot-instance-1',500)
+
+                        for request in requests:
+                            if service.can_handle_request(request=request):
+                                service.process_request(request=request)
+                                print(f"CPU USAGE: {service.current_cpu} / {service.max_cpu}")
+                            else:
+                                print(f"DOWN {service.identifier}")
+                                #Logic to notify the agent to do stuff!!!!
+            
+                            time.sleep(1)  # Simulating 1 minute as 1 real-world second
 
                     print(f"End of Hour {hour_data['hour']} Total {total_req} requests")
                     
