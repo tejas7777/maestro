@@ -1,5 +1,6 @@
 from traffic.utils.request import Request
 import random
+import string
 
 class TrafficGenerator():
 
@@ -12,9 +13,9 @@ class TrafficGenerator():
     }
 
     computation_units = {
-        'GET': [20, 5],  # Example: mean=20, sd=5
-        'POST': [30, 10],
-        'PUT': [25, 7],
+        'GET': [50, 5],  # Example: mean=20, sd=5
+        'POST': [100, 10],
+        'PUT': [200, 7],
         'DELETE': [15, 4]
     }
 
@@ -27,7 +28,7 @@ class TrafficGenerator():
         num_requests = params.get("num")
 
         output_list = []
-
+        
         for __ in range(num_requests):
             #Select method based on Gaussian distribution
             method_index = int(random.gauss(mu=1.5, sigma=1)) % len(self.request_params["methods"])
@@ -47,7 +48,8 @@ class TrafficGenerator():
                 route=random.choice(self.request_params["routes"]),
                 data=random.choice(self.request_params["data_examples"]),
                 computation=computation,
-                time= processing_time
+                time= processing_time,
+                id=''.join(random.choice(string.ascii_lowercase) for i in range(5))
             )
             output_list.append(request)
 

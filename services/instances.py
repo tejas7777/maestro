@@ -1,3 +1,5 @@
+import threading
+
 class StandardInstance():
     def __init__(self, identifier, max_cpu):
         self.identifier = identifier
@@ -5,6 +7,7 @@ class StandardInstance():
         self.current_cpu = 0
         self.request_queue = []
         self.state = 1
+        self.lock = threading.Lock()
 
     def process_request(self, request):
         if self.can_handle_request(request):
@@ -27,5 +30,14 @@ class StandardInstance():
         else:
             self.state = 1
         return not overloaded
+    
+    def release_resources(self, computation):
+        with self.lock:
+            # Method to release resources after processing a request
+            if self.state == 0:
+                return  # Do not release resources if service is down
+            
+            self.current_cpu -= computation  # Subtract the computation cost
+            self.current_cpu = max(0, self.current_cpu)  # Prevent negative CPU usage
 
 
