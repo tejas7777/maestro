@@ -13,9 +13,9 @@ class TrafficGenerator():
     }
 
     computation_units = {
-        'GET': [50, 5],  # Example: mean=20, sd=5
-        'POST': [100, 10],
-        'PUT': [200, 7],
+        'GET': [20, 5],  # Example: mean=20, sd=5
+        'POST': [40, 10],
+        'PUT': [50, 7],
         'DELETE': [15, 4]
     }
 

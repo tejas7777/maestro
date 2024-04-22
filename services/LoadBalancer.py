@@ -25,4 +25,5 @@ class LoadBalancer:
 
     def deregister_service(self, service):
         # Remove a service from the list, if necessary
-        self.services.remove(service)
+        if service in self.services:
+            self.services.remove(service)
