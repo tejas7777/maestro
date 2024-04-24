@@ -9,6 +9,8 @@ import random
 from services.LoadBalancer import LoadBalancer
 import threading
 import math
+from intelligence.kalman_filter import KalmanFilter
+from engine.execution import ExecutorPipeline
 
 class Engine:
 
@@ -22,7 +24,18 @@ class Engine:
         for service in self.services:
             self.LoadBalancerObj.register_service(service)  # Register once
         self.resource_schedule = {}  # Scheduled resource releases
+        self.kalman_filter = self.init_klaman_filter()
 
+    def init_klaman_filter(self):
+        # Kalman Filter Initialization
+        F = np.array([[1]])  # State transition matrix, assuming simple system dynamics
+        Q = np.array([[1e-5]])  # Process noise covariance, small value assuming low process noise
+        H = np.array([[1]])  # Observation matrix
+        R = np.array([[1e-2]])  # Measurement noise covariance, adjust based on actual observation noise
+        x0 = np.array([[10]])  # Initial state estimate, perhaps an average of past data
+        P0 = np.array([[1]])  # Initial covariance estimate, somewhat arbitrary
+
+        return KalmanFilter(F=F, Q=Q, H=H, R=R, x0=x0, P0=P0, tuning_period=15)
 
     def __fetch_time_policy(self) -> dict:
         with open(f"{self.path_to_artifact}/time.json", 'r') as f:
@@ -53,7 +66,7 @@ class Engine:
                 break
             if service.can_handle_request(request=request):
                 service.process_request(request=request)
-                print(f"CPU USAGE: {service.current_cpu} / {service.max_cpu}")
+                print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
                 #Send for reseource release
                 self.schedule_resource_release(service=service, current_minute= minute, current_hour=current_hour, computation=request.computation, request_id=request.id)
             else:
@@ -68,26 +81,27 @@ class Engine:
         hourly_requests = hour_data['num_req']
         lambda_per_minute = hourly_requests / 60
         requests_per_minute = np.random.poisson(lambda_per_minute, 60)
-        # services = self.services
-        # self.LoadBalancerObj.register_service(*services)
         total_req = 0
         current_hour = hour_data['hour']
+        
+        minutes_passed = 0
 
         for minute, req_count in enumerate(requests_per_minute, start=1):
             schedule_key = (current_hour, minute)
 
             if schedule_key in self.resource_schedule:
                 for service, computation, request_id in self.resource_schedule.pop(schedule_key, []):
-                    #print(f"Checking release for service {service.identifier} with state {service.state}")
                     if service.state == 0:
-                        #print(f"Service {service.identifier} is down. No resource release.")
                         pass
                     else:
                         service.release_resources(computation)
                         print(f"Released resources for service {service.identifier} for request {request_id}. Current CPU: {service.current_cpu}")
+
         
             self.simulate_minute(minute, req_count, current_hour)
             total_req += req_count
+            minutes_passed += 1
+
         print(f"End of Hour {hour_data['hour']} Total {total_req} requests")
 
 

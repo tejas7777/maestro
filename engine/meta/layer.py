@@ -20,6 +20,18 @@ class MetaLayer:
             
     def get_data_identifier(self,identifier):
         return self.__data.get(identifier, {})
+    
+
+    def event_logger(self, event:dict):
+        if event is None:
+            return False
+        
+        else:
+            events_arr = self.__data.get("events",[])
+            self.__data["events"] = events_arr.append(event)
+            
+            return True
+
 
 
     def __str__(self):
