@@ -1,10 +1,16 @@
+from services.resource.compute import Compute
+
 class StandardInstance():
     def __init__(self, identifier, max_cpu):
+        self.compute = Compute()
         self.identifier = identifier
-        self.max_cpu = max_cpu
+        self.max_cpu = self.compute.get_standard_compute()
         self.current_cpu = 0
-        self.request_queue = []
+        self.unprocessed_request_queue = []
         self.state = 1
+        self.request_processed = 0
+        self.up_scaled = 0
+        self.instance_compute_type = "Standard"
 
     def set_state(self, new_state):
         print(f"State changing from {self.state} to {new_state} for {self.identifier}")
@@ -13,10 +19,9 @@ class StandardInstance():
     def process_request(self, request):
         if self.can_handle_request(request):
             self.current_cpu += request.computation
-            # if not self.check_health():
-            #     self.set_state(0)
+            self.request_processed += 1
         else:
-            self.request_queue.append(request)
+            self.unprocessed_request_queue.append(request)
             self.set_state(0)
 
     def can_handle_request(self, request):
@@ -24,12 +29,6 @@ class StandardInstance():
             return False
         return self.current_cpu + request.computation <= self.max_cpu
     
-    # def check_health(self):
-    #     overloaded = self.current_cpu > self.max_cpu
-    #     if overloaded:
-    #         self.set_state(0)
-
-    #     return not overloaded
     
     def release_resources(self, computation):
         # Method to release resources after processing a request
@@ -41,5 +40,15 @@ class StandardInstance():
 
     def set_service_down(self):
         self.set_state(0)
+
+    def get_instance_identifier(self):
+        return self.identifier
+    
+    def scale_up(self):
+        self.max_cpu = self.compute.get_standard_plus_compute()
+        self.up_scaled = 0
+        self.instance_compute_type = "Standard Plus"
+
+
 
 

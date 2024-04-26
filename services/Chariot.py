@@ -23,7 +23,7 @@ class Chariot(StandardInstance):
     #     else:
     #         self.state = 1  # Otherwise, ensure it's marked as available
 
-    def get_instance_identifier(self):
-        return self.identifier
+    # def get_instance_identifier(self):
+    #     return self.identifier
 
     

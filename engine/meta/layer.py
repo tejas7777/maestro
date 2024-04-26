@@ -1,6 +1,15 @@
+import redis
+import json
+
 class MetaLayer:
     def __init__(self):
-        self.__data = {}
+        self.__data = {
+            "instances":{},
+            "time":{}
+        }
+        
+        self.redis = redis.Redis(host='localhost', port=6379, db=0)
+
 
 
     def create_record(self,identifier: str, data)-> bool:
@@ -22,16 +31,16 @@ class MetaLayer:
         return self.__data.get(identifier, {})
     
 
-    def event_logger(self, event:dict):
-        if event is None:
-            return False
-        
-        else:
-            events_arr = self.__data.get("events",[])
-            self.__data["events"] = events_arr.append(event)
-            
-            return True
+    def upsert_instance_data(self,indentifier,data):
+        self.__data["instances"][indentifier] = data
 
+    def get_data(self):
+        return self.__data
+
+    def update_meta_data_cache(self):
+        json_data = json.dumps(self.__data)
+        # Store the JSON string in KeyDB
+        self.redis.set('maestro_meta_data', json_data)
 
 
     def __str__(self):
