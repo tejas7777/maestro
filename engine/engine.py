@@ -31,7 +31,7 @@ class Engine:
             self.LoadBalancerObj.register_service(service)  # Register once
         self.resource_schedule = {}  # Scheduled resource releases
 
-        enviornment = Environment(
+        self.enviornment = Environment(
             services=self.services,
             load_balancer=self.LoadBalancerObj,
             meta_layer=self.meta_layer,
