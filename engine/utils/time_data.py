@@ -22,7 +22,7 @@ class TimeData:
     def get_increment_minutes_str(self, minutes, hour, day):
         minuite = self.minuite + minutes
 
-        if minuite >= 60:
+        if minuite > 60:
             hour += minuite // 60
             minuite %= 60
             if hour >= 24:

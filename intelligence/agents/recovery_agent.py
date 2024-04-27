@@ -10,6 +10,9 @@ class RecoveryAgent:
     def send_recover_service_request(self,service_identifier: str):
         self.enviornment_interface.restart_service(service_identifier, 2)
         
+    def monitor_service_loads(self):
+        pass
+
     def watch(self):
         meta_data:dict = self.enviornment_interface.get_meta_data()
 
@@ -19,5 +22,13 @@ class RecoveryAgent:
             if instance_data["status"] == 0 and instance_data.get("restart_initiated") == 0:
                 print(colored(f"Service {instance_identifier} recovery request sent by agent", "yellow"))
                 self.send_recover_service_request(instance_identifier)
+            else:
+                self.monitor_service_loads()
+
+            
+            
+
+
+        
 
         
