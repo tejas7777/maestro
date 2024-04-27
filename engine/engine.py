@@ -1,3 +1,4 @@
+from intelligence.agents.recovery_agent import RecoveryAgent
 from traffic.generator import TrafficGenerator
 import json
 import time
@@ -14,6 +15,7 @@ from termcolor import colored
 from engine.meta.layer import MetaLayer
 from engine.utils.time_data import TimeData
 from engine.meta.enviornment import Environment
+from engine.api.agent_interface import EnviornmentAgentInterface
 
 
 class Engine:
@@ -31,12 +33,23 @@ class Engine:
             self.LoadBalancerObj.register_service(service)  # Register once
         self.resource_schedule = {}  # Scheduled resource releases
 
+        self.task_queue = []
+
         self.enviornment = Environment(
             services=self.services,
             load_balancer=self.LoadBalancerObj,
             meta_layer=self.meta_layer,
             time=self.time_data
+
         )
+        
+        self.agent_interface = EnviornmentAgentInterface(
+            environment=self.enviornment,
+        )
+
+        self.recovery_agent = RecoveryAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
+
+
 
 
     def __fetch_time_policy(self) -> dict:
@@ -66,8 +79,11 @@ class Engine:
         self.engine_helper.update_time_in_meta_layer()
         # print(f"TEST Meta Layer: {self.meta_layer.get_data()}")
         print(f"Minute {minute}: {req_count} requests")
+        self.recovery_agent.watch()
+        self.enviornment.update_environment()
+        
         requests = self.traffic_generator.generator(mode="DETERMINISTIC", num=req_count)
-        service = self.LoadBalancerObj.get_service_least_cpu()
+        service: StandardInstance = self.LoadBalancerObj.get_service_least_cpu()
 
         for request in requests:
             if not service:
@@ -83,13 +99,12 @@ class Engine:
                 service.set_service_down()
                 self.LoadBalancerObj.deregister_service(service)
                 break
-
         self.engine_helper.update_meta_data_after_every_minuite(
             data = {
                 "instances": self.services
             }
         )
-        
+
         time.sleep(1)  # Simulate real-time minute passing
 
     def run_simulation_for_hour(self, hour_data):

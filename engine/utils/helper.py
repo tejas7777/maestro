@@ -14,7 +14,9 @@ class EngineHelper():
             "status":instance.state,
             "scaling_events":scaling_event,
             "max_cpu":instance.max_cpu,
-            "instance_type":instance.instance_compute_type
+            "instance_type":instance.instance_compute_type,
+            "restart_initiated":instance.restart_initiated,
+            "restart_count":instance.restart_count
             }
 
         return self.meta_layer.upsert_instance_data(

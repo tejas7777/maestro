@@ -10,7 +10,9 @@ class StandardInstance():
         self.state = 1
         self.request_processed = 0
         self.up_scaled = 0
+        self.restart_count = 0
         self.instance_compute_type = "Standard"
+        self.restart_initiated = 0
 
     def set_state(self, new_state):
         print(f"State changing from {self.state} to {new_state} for {self.identifier}")
@@ -40,6 +42,7 @@ class StandardInstance():
 
     def set_service_down(self):
         self.set_state(0)
+        #self.current_cpu = 0
 
     def get_instance_identifier(self):
         return self.identifier
@@ -47,7 +50,14 @@ class StandardInstance():
     def scale_up(self):
         self.max_cpu = self.compute.get_standard_plus_compute()
         self.up_scaled = 0
-        self.instance_compute_type = "Standard Plus"
+        self.instance_compute_type = "Standard-Plus"
+
+    def restart(self):
+        self.set_state(1)
+        self.current_cpu = 0
+        # self.request_processed = 0
+        self.restart_count += 1
+        self.restart_initiated = 0
 
 
 
