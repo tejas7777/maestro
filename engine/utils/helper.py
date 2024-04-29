@@ -1,6 +1,7 @@
 from engine.meta.layer import MetaLayer
 from services.instances import StandardInstance
 from engine.utils.time_data import TimeData
+from services.database_service import DatabaseService
 
 class EngineHelper():
     def __init__(self,meta_layer: MetaLayer, time_data: TimeData):
@@ -23,6 +24,25 @@ class EngineHelper():
             indentifier= instance.get_instance_identifier(),
             data=instance_data
         )
+    
+    def add_database_instance_meta_data(self, instance: DatabaseService, scaling_event = 0):
+        instance_data = {
+            "disk_io_usage":instance.current_disk_io,
+            "requests_processed":instance.current_connections,
+            "status":instance.state,
+            "scaling_events":scaling_event,
+            "max_disk_io":instance.max_disk_io,
+            "max_connections":instance.max_connections,
+            "restart_initiated":instance.restart_initiated,
+            "restart_count":instance.restart_count
+            }
+
+        return self.meta_layer.upsert_database_service_data(
+            indentifier= instance.get_instance_identifier(),
+            data=instance_data
+        )
+    
+
     
     def update_instance_meta_data(self,instances: list[StandardInstance]):
         for instance in instances:

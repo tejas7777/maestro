@@ -5,6 +5,7 @@ class MetaLayer:
     def __init__(self):
         self.__data = {
             "instances":{},
+            "database_services":{},
             "time":{}
         }
         
@@ -33,6 +34,9 @@ class MetaLayer:
 
     def upsert_instance_data(self,indentifier,data):
         self.__data["instances"][indentifier] = data
+
+    def upsert_database_service_data(self,indentifier,data):
+        self.__data["database_services"][indentifier] = data
 
     def get_data(self):
         return self.__data

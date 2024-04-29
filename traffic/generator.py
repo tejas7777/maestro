@@ -19,6 +19,13 @@ class TrafficGenerator():
         'DELETE': [15, 4]
     }
 
+    disk_io_units = {
+        'GET': [5, 1],   # Lower disk I/O usage
+        'POST': [10, 2],  # Higher disk I/O due to writes
+        'PUT': [10, 2],   # Similar to POST
+        'DELETE': [3, 1]  # Moderate disk I/O usage
+    }
+
     
     def deterministic(self, params) -> list[Request]:
         '''
@@ -38,6 +45,17 @@ class TrafficGenerator():
             mean, sd = self.computation_units[method]
             computation = int(random.gauss(mean, sd))
 
+            # Determine disk I/O units
+            io_mean, io_sd = self.disk_io_units[method]
+            disk_io = int(random.gauss(io_mean, io_sd))
+            
+            # Introduce a probability that disk I/O is set to zero
+            if random.random() > 0.2:  # 20% chance to have zero disk I/O
+                io_mean, io_sd = self.disk_io_units[method]
+                disk_io = int(random.gauss(io_mean, io_sd))
+            else:
+                disk_io = 0
+
             processing_factor = 0.075  # This factor determines the conversion rate
             processing_time = computation * processing_factor
    
@@ -49,6 +67,7 @@ class TrafficGenerator():
                 data=random.choice(self.request_params["data_examples"]),
                 computation=computation,
                 time= processing_time,
+                disk_io_usage=disk_io,  # Assign calculated disk I/O usage
                 id=''.join(random.choice(string.ascii_lowercase) for i in range(5))
             )
             output_list.append(request)

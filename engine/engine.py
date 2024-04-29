@@ -7,10 +7,8 @@ from services.Chariot import Chariot
 from services.instances import StandardInstance
 from engine.meta.layer import MetaLayer
 from engine.utils.helper import EngineHelper
-import random
 from services.LoadBalancer import LoadBalancer
 import math
-from intelligence.kalman_filter import KalmanFilter
 from termcolor import colored
 from engine.meta.layer import MetaLayer
 from engine.utils.time_data import TimeData
@@ -30,19 +28,21 @@ class Engine:
         self.engine_helper = EngineHelper(meta_layer=self.meta_layer,time_data=self.time_data)
         self.LoadBalancerObj = LoadBalancer()
         self.services = self.spawn_services(5)
-        self.spawn_databse_services(2)
+        self.database_services = self.spawn_database_services(2)
         for service in self.services:
             self.LoadBalancerObj.register_service(service)  # Register once
-        self.resource_schedule = {}  # Scheduled resource releases
 
+        self.assign_services_to_databases()
+
+        self.resource_schedule = {}  # Scheduled resource releases
         self.task_queue = []
 
         self.enviornment = Environment(
             services=self.services,
             load_balancer=self.LoadBalancerObj,
             meta_layer=self.meta_layer,
-            time=self.time_data
-
+            time=self.time_data,
+            database_services=self.database_services
         )
         
         self.agent_interface = EnviornmentAgentInterface(
@@ -57,7 +57,7 @@ class Engine:
             self.time_policy = json.load(f)
             return self.time_policy
         
-    def spawn_services(self,num):
+    def spawn_services(self,num) -> list[StandardInstance]:
         services = []
         for i in range(num):
             new_service = StandardInstance(f'standard-instance-{i}', 500)
@@ -66,15 +66,26 @@ class Engine:
 
         return services
     
-    def spawn_databse_services(self,num):
-        services = []
+    def spawn_database_services(self,num) -> list[DatabaseService]:
+        databse_services = []
         for i in range(num):
-            new_service = StandardInstance(f'database-instance-{i}', 500)
-            services.append(new_service)
-            self.engine_helper.add_intance_meta_data(new_service)
+            new_service = DatabaseService(f'database-instance-{i}')
+            databse_services.append(new_service)
+            self.engine_helper.add_database_instance_meta_data(new_service)
 
-        return services
+        return databse_services
         
+    def assign_services_to_databases(self):
+        db_index = 0
+        for service in self.services:
+            attempts = 0
+            while not service.database_instance and attempts < len(self.database_services):
+                if not service.connect_to_database(self.database_services[db_index]):
+                    attempts += 1
+                db_index = (db_index + 1) % len(self.database_services)
+                    
+
+
     
     def schedule_resource_release(self, current_hour, current_minute, service, computation, request_id):
         release_minute = (current_minute + round(math.log1p(computation))) % 60
@@ -85,6 +96,8 @@ class Engine:
 
     def schedule_resource_release_v2(self, current_hour, current_minute, service, computation, request_id):
         release_minute =  round(math.log1p(computation))
+        if release_minute == 0:
+            release_minute = 1
         time_to_release = self.time_data.get_increment_minutes_str(release_minute, current_hour, self.time_data.day)
 
         task_obj = {
@@ -92,6 +105,22 @@ class Engine:
             "computation": computation,
             "request_id": request_id,
             "type": "release_resources",
+            "time": time_to_release
+        }
+
+        self.enviornment.environment_task_queue.append(task_obj)
+
+    def schedule_database_resource_release(self, current_hour, database, disk_io, request_id):
+        release_minute =  round(math.log1p(disk_io))
+        if release_minute == 0:
+            release_minute = 1
+        time_to_release = self.time_data.get_increment_minutes_str(release_minute, current_hour, self.time_data.day)
+
+        task_obj = {
+            "database": database,
+            "disk_io": disk_io,
+            "request_id": request_id,
+            "type": "release_database_resources",
             "time": time_to_release
         }
 
@@ -113,10 +142,28 @@ class Engine:
                 print(f"No available service")
                 break
             if service.can_handle_request(request=request):
-                service.process_request(request=request)
-                print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
-                #Send for reseource release
-                self.schedule_resource_release_v2(service=service, current_minute= minute, current_hour=current_hour, computation=request.computation, request_id=request.id)
+                if request.disk_io_usage:
+                    database = service.database_instance
+                    if database:
+                        if database.can_handle_disk_io(request.disk_io_usage):
+                            database.handle_disk_io(request.disk_io_usage)
+                            service.process_request(request=request)
+                            print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
+                            print(f"Disk IO USAGE {database.get_instance_identifier()}: {database.current_disk_io} / {database.max_disk_io}")
+
+                            self.schedule_resource_release_v2(service=service, current_minute= minute, current_hour=current_hour, computation=request.computation, request_id=request.id)
+                            self.schedule_database_resource_release(current_hour, database, request.disk_io_usage, request.id)
+                            
+                        else:
+                            database.set_service_down()
+                            print(colored(f"database {database.get_instance_identifier()} is DOWN","red"))
+                    else:
+                        print(colored(f"Service {service.get_instance_identifier()} not connected to a database instance","red"))
+
+                else:
+                    service.process_request(request=request)
+                    print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
+                    self.schedule_resource_release_v2(service=service, current_minute= minute, current_hour=current_hour, computation=request.computation, request_id=request.id)
             else:
                 print(colored(f"Service {service.get_instance_identifier()} is DOWN","red"))
                 service.set_service_down()

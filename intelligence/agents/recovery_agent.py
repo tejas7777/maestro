@@ -25,6 +25,9 @@ class RecoveryAgent:
             else:
                 self.monitor_service_loads()
 
+    def scale_out_instances(self,num = 1):
+        pass
+
             
             
 

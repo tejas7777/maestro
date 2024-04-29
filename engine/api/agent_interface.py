@@ -17,3 +17,6 @@ class EnviornmentAgentInterface():
 
     def get_meta_data(self):
         return self.enviornment.meta_layer.get_data()
+    
+    def add_new_instances(self,num, type='Standard'):
+        pass
