@@ -6,7 +6,8 @@ class MetaLayer:
         self.__data = {
             "instances":{},
             "database_services":{},
-            "time":{}
+            "time":{},
+            "system_data":{},
         }
         
         self.redis = redis.Redis(host='localhost', port=6379, db=0)
@@ -35,6 +36,9 @@ class MetaLayer:
     def upsert_instance_data(self,indentifier,data):
         self.__data["instances"][indentifier] = data
 
+    def update_instance_data(self,data):
+        self.__data["instances"] = data
+
     def upsert_database_service_data(self,indentifier,data):
         self.__data["database_services"][indentifier] = data
 
@@ -45,6 +49,9 @@ class MetaLayer:
         json_data = json.dumps(self.__data)
         # Store the JSON string in KeyDB
         self.redis.set('maestro_meta_data', json_data)
+
+    def update_system_data(self, data):
+        self.__data["system_data"] = data
 
 
     def __str__(self):

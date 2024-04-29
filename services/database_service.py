@@ -51,3 +51,6 @@ class DatabaseService:
            
         self.current_disk_io -= disk_io
         self.current_cpu = max(0, self.current_disk_io)
+
+    def terminate_connection(self):
+        self.current_connections -= 1

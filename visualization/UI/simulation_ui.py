@@ -77,6 +77,10 @@ class SimulationUI(QMainWindow):
         self.timeDisplay = QLabel("Time: --:--:--")
         self.timeDisplay.setStyleSheet("font-size: 18px; padding: 10px;")
         layout.addWidget(self.timeDisplay)
+        # System-wide data display
+        self.systemDataDisplay = QLabel("System Data: Loading...")
+        self.systemDataDisplay.setStyleSheet("font-size: 16px; padding: 10px;")
+        layout.addWidget(self.systemDataDisplay)
 
         self.table = QTableWidget()
         self.table.setColumnCount(5)
@@ -87,11 +91,17 @@ class SimulationUI(QMainWindow):
     def update_ui(self):
         data = self.get_data()
 
-        # Update the time display
+        # Update the time and system data display
         time_data = data.get('time', {}).get('data', {})
         self.timeDisplay.setText(f"Time: Day {time_data.get('day', '--')}, Hour {time_data.get('hour', '--')}, Minute {time_data.get('minuite', '--')}")
 
-        # Prepare data list for sorting
+        system_data = data.get('system_data', {})
+        system_info = (f"Avg CPU: {round(system_data.get('avg_cpu', '--'),2)}"
+                    f"Total Requests Processed: {system_data.get('total_requests_processed', '--')}, "
+                    f"Unprocessed Requests: {system_data.get('total_requests_unprocessed', '--')}")
+        self.systemDataDisplay.setText(f"System Data: {system_info}")
+
+        # Prepare and sort data list for the table
         instances = [
             (
                 instance_id,
@@ -102,9 +112,7 @@ class SimulationUI(QMainWindow):
             )
             for instance_id, details in data.get('instances', {}).items()
         ]
-
-        # Sort instances by CPU usage percentage, descending
-        instances.sort(key=lambda x: x[1], reverse=True)
+        instances.sort(key=lambda x: x[1], reverse=True)  # Sort by CPU usage
 
         # Update the table
         self.table.setRowCount(0)

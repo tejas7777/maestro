@@ -3,10 +3,10 @@ from services.resource.compute import Compute
 from services.database_service import DatabaseService
 
 class StandardInstance():
-    def __init__(self, identifier, max_cpu, instance_compute_type="Standard"):
+    def __init__(self, identifier, max_cpu = 100, instance_compute_type="Standard", scaled_out = 0):
         self.compute = Compute()
         self.identifier = identifier
-        
+
         if instance_compute_type == 'Standard-plus':
             self.max_cpu = self.compute.get_standard_plus_compute()
         else:
@@ -20,8 +20,8 @@ class StandardInstance():
         self.restart_count = 0
         self.instance_compute_type = instance_compute_type
         self.restart_initiated = 0
-        self.database_instance = None
-
+        self.database_instance: DatabaseService = None
+        self.scaled_out = scaled_out
 
 
     def set_state(self, new_state):
@@ -79,4 +79,13 @@ class StandardInstance():
             return False
 
 
+    def terminate_service(self):
+        self.set_state(0)
+        self.current_cpu = 0
+        self.request_processed = 0
+        self.restart_count = 0
+        self.restart_initiated = 0
+        self.scaled_out = 0
+        self.database_instance.terminate_connection()
+        print(colored(f"service {self.identifier} Terminated", 'yellow'))
 

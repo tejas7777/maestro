@@ -32,11 +32,6 @@ class Engine:
         for service in self.services:
             self.LoadBalancerObj.register_service(service)  # Register once
 
-        self.assign_services_to_databases()
-
-        self.resource_schedule = {}  # Scheduled resource releases
-        self.task_queue = []
-
         self.enviornment = Environment(
             services=self.services,
             load_balancer=self.LoadBalancerObj,
@@ -44,6 +39,13 @@ class Engine:
             time=self.time_data,
             database_services=self.database_services
         )
+
+        self.enviornment.assign_services_to_databases()
+
+        self.resource_schedule = {}  # Scheduled resource releases
+        self.task_queue = []
+
+
         
         self.agent_interface = EnviornmentAgentInterface(
             environment=self.enviornment,
@@ -75,14 +77,14 @@ class Engine:
 
         return databse_services
         
-    def assign_services_to_databases(self):
-        db_index = 0
-        for service in self.services:
-            attempts = 0
-            while not service.database_instance and attempts < len(self.database_services):
-                if not service.connect_to_database(self.database_services[db_index]):
-                    attempts += 1
-                db_index = (db_index + 1) % len(self.database_services)
+    # def assign_services_to_databases(self):
+    #     db_index = 0
+    #     for service in self.services:
+    #         attempts = 0
+    #         while not service.database_instance and attempts < len(self.database_services):
+    #             if not service.connect_to_database(self.database_services[db_index]):
+    #                 attempts += 1
+    #             db_index = (db_index + 1) % len(self.database_services)
                     
 
 
@@ -137,6 +139,8 @@ class Engine:
         requests = self.traffic_generator.generator(mode="DETERMINISTIC", num=req_count)
         service: StandardInstance = self.LoadBalancerObj.get_service_least_cpu()
 
+        unprocessed_requests = 0
+
         for request in requests:
             if not service:
                 print(f"No available service")
@@ -148,35 +152,42 @@ class Engine:
                         if database.can_handle_disk_io(request.disk_io_usage):
                             database.handle_disk_io(request.disk_io_usage)
                             service.process_request(request=request)
-                            print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
-                            print(f"Disk IO USAGE {database.get_instance_identifier()}: {database.current_disk_io} / {database.max_disk_io}")
+                            #print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
+                            #print(f"Disk IO USAGE {database.get_instance_identifier()}: {database.current_disk_io} / {database.max_disk_io}")
 
                             self.schedule_resource_release_v2(service=service, current_minute= minute, current_hour=current_hour, computation=request.computation, request_id=request.id)
                             self.schedule_database_resource_release(current_hour, database, request.disk_io_usage, request.id)
                             
                         else:
                             database.set_service_down()
+                            unprocessed_requests += 1
                             print(colored(f"database {database.get_instance_identifier()} is DOWN","red"))
                     else:
+                        unprocessed_requests += 1
                         print(colored(f"Service {service.get_instance_identifier()} not connected to a database instance","red"))
 
                 else:
                     service.process_request(request=request)
-                    print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
+                    #print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
                     self.schedule_resource_release_v2(service=service, current_minute= minute, current_hour=current_hour, computation=request.computation, request_id=request.id)
             else:
+                unprocessed_requests += 1
                 print(colored(f"Service {service.get_instance_identifier()} is DOWN","red"))
                 service.set_service_down()
                 self.LoadBalancerObj.deregister_service(service)
                 break
-        self.engine_helper.update_meta_data_after_every_minuite(
-            data = {
-                "instances": self.services
-            }
-        )
+        # self.engine_helper.update_meta_data_after_every_minuite(
+        #     data = {
+        #         "instances": self.services
+        #     }
+        # )
+
+        self.enviornment.update_meta_data_after_every_minuite_v2({
+            "unprocessed_requests_for_min": unprocessed_requests,
+        })
 
         time.sleep(1)  # Simulate real-time minute passing
-        self.engine_helper.update_time_in_meta_layer()
+        #self.engine_helper.update_time_in_meta_layer()
 
     def run_simulation_for_hour(self, hour_data):
         hourly_requests = hour_data['num_req']
