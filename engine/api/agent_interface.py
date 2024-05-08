@@ -36,9 +36,15 @@ class EnviornmentAgentInterface():
 
         return total_cpu / num
     
-    def stop_scaled_out_instances(self, num):
+    def stop_scaled_out_instances(self, num = 0):
         #Get scaled out instances
         scaled_out_instances = [ service for service in self.enviornment.services if service.scaled_out == 1]
+
+        if len(scaled_out_instances) == 0:
+            return
+
+        if num == 0:
+            num = len(scaled_out_instances)
 
         #Send for termination
         smooth_out_time = 1
@@ -56,3 +62,6 @@ class EnviornmentAgentInterface():
             "type": "service_terminated",
             service_identifier: service_identifier
         })
+
+    def get_max_db_connections(self):
+        return self.enviornment.get_available_db_connections()

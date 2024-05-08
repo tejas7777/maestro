@@ -1,4 +1,5 @@
 from intelligence.agents.recovery_agent import RecoveryAgent
+from intelligence.agents.fuzzy_agent import FuzzyAgent
 from traffic.generator import TrafficGenerator
 import json
 import time
@@ -28,7 +29,7 @@ class Engine:
         self.engine_helper = EngineHelper(meta_layer=self.meta_layer,time_data=self.time_data)
         self.LoadBalancerObj = LoadBalancer()
         self.services = self.spawn_services(5)
-        self.database_services = self.spawn_database_services(2)
+        self.database_services = self.spawn_database_services(4)
         for service in self.services:
             self.LoadBalancerObj.register_service(service)  # Register once
 
@@ -52,6 +53,7 @@ class Engine:
         )
 
         self.recovery_agent = RecoveryAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
+        #self.recovery_agent = FuzzyAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
 
 
     def __fetch_time_policy(self) -> dict:
@@ -137,11 +139,14 @@ class Engine:
         self.enviornment.update_environment()
         
         requests = self.traffic_generator.generator(mode="DETERMINISTIC", num=req_count)
-        service: StandardInstance = self.LoadBalancerObj.get_service_least_cpu()
+        #service: StandardInstance = self.LoadBalancerObj.get_service_least_cpu()
+       #service: StandardInstance = self.LoadBalancerObj.get_service_least_connections()
 
         unprocessed_requests = 0
 
         for request in requests:
+            service: StandardInstance = self.LoadBalancerObj.get_service_round_robin()  # Getting a new service for each request
+
             if not service:
                 print(f"No available service")
                 break
@@ -185,6 +190,8 @@ class Engine:
         self.enviornment.update_meta_data_after_every_minuite_v2({
             "unprocessed_requests_for_min": unprocessed_requests,
         })
+
+        self.recovery_agent.update_observations({"request_rate": req_count})
 
         time.sleep(1)  # Simulate real-time minute passing
         #self.engine_helper.update_time_in_meta_layer()

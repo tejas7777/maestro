@@ -22,6 +22,7 @@ class StandardInstance():
         self.restart_initiated = 0
         self.database_instance: DatabaseService = None
         self.scaled_out = scaled_out
+        self.request_processed_last = 0
 
 
     def set_state(self, new_state):

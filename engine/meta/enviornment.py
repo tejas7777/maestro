@@ -7,7 +7,7 @@ from services.database_service import DatabaseService
 
 class Environment:
     def __init__(self, services: list[StandardInstance], load_balancer: LoadBalancer, meta_layer: MetaLayer, time: TimeData,
-                 environment_task_queue: list = [], database_services: list = [DatabaseService]):
+                 environment_task_queue: list = [], database_services: list[DatabaseService] = []):
         self.services = services
         self.load_balancer = load_balancer
         self.meta_layer = meta_layer
@@ -188,7 +188,11 @@ class Environment:
         system_data_to_update = {
             "avg_cpu": self.get_avg_system_load_v2(),
             "total_requests_processed": sum([service.request_processed for service in self.services]),
-            "total_requests_unprocessed": self.unprocessed_requests
+            "total_requests_unprocessed": self.unprocessed_requests,
+            "request_drop_rate": round( self.unprocessed_requests / (self.unprocessed_requests + sum([service.request_processed for service in self.services] 
+                                                                                              if self.unprocessed_requests + sum([service.request_processed 
+                                                                                                                                  for service in self.services]) 
+                                                                                                                                  > 0 else 1) ), 2) * 100,
         }
 
         self.meta_layer.update_system_data(system_data_to_update)
@@ -199,7 +203,10 @@ class Environment:
         self.add_intance_meta_data_v2()
         self.meta_layer.update_meta_data_cache()
         self.update_system_data()
-
+        
+    def get_available_db_connections(self):
+        #Get total available db connections (max connections - current connections)
+        return sum([db.max_connections - db.current_connections for db in self.database_services])
 
             
         

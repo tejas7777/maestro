@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTextEdit, QWidget, QVBox
 from PyQt5.QtCore import QTimer, QEventLoop
 import redis
 import json
+import math
 
 class SimulationUI(QMainWindow):
     def __init__(self):
@@ -78,7 +79,7 @@ class SimulationUI(QMainWindow):
         self.timeDisplay.setStyleSheet("font-size: 18px; padding: 10px;")
         layout.addWidget(self.timeDisplay)
         # System-wide data display
-        self.systemDataDisplay = QLabel("System Data: Loading...")
+        self.systemDataDisplay = QLabel("Loading...")
         self.systemDataDisplay.setStyleSheet("font-size: 16px; padding: 10px;")
         layout.addWidget(self.systemDataDisplay)
 
@@ -94,12 +95,21 @@ class SimulationUI(QMainWindow):
         # Update the time and system data display
         time_data = data.get('time', {}).get('data', {})
         self.timeDisplay.setText(f"Time: Day {time_data.get('day', '--')}, Hour {time_data.get('hour', '--')}, Minute {time_data.get('minuite', '--')}")
-
         system_data = data.get('system_data', {})
-        system_info = (f"Avg CPU: {round(system_data.get('avg_cpu', '--'),2)}"
-                    f"Total Requests Processed: {system_data.get('total_requests_processed', '--')}, "
-                    f"Unprocessed Requests: {system_data.get('total_requests_unprocessed', '--')}")
-        self.systemDataDisplay.setText(f"System Data: {system_info}")
+        
+        avg_cpu = system_data.get('avg_cpu', '--')
+        if isinstance(avg_cpu, float):
+            cpu_info = f"Avg CPU: {avg_cpu:.2f} "
+        else:
+            cpu_info = f"Avg CPU: {avg_cpu} "
+
+
+        system_info = (f"{cpu_info}, "
+                f"Total Requests Processed: {system_data.get('total_requests_processed', '--')}, "
+                # f"Unprocessed Requests: {system_data.get('total_requests_unprocessed', '--')}, "
+                f"Request Drop Rate %: {system_data.get('request_drop_rate', '--')}"
+                )
+        self.systemDataDisplay.setText(f"{system_info}")
 
         # Prepare and sort data list for the table
         instances = [
