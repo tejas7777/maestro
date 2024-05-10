@@ -23,6 +23,7 @@ class StandardInstance():
         self.database_instance: DatabaseService = None
         self.scaled_out = scaled_out
         self.request_processed_last = 0
+        self.scale_up_initiated = 0
 
 
     def set_state(self, new_state):
@@ -58,10 +59,18 @@ class StandardInstance():
     def get_instance_identifier(self):
         return self.identifier
     
-    def scale_up(self):
+    def initiate_scale_up(self):
         self.max_cpu = self.compute.get_standard_plus_compute()
         self.up_scaled = 0
         self.instance_compute_type = "Standard-Plus"
+        self.scale_up_initiated = 1
+        self.current_cpu = 0
+        self.set_state(0)
+
+    def complete_scale_up(self):
+        #Kind of a callback
+        self.scale_up_initiated = 0
+        self.set_state(1)
 
     def restart(self):
         self.set_state(1)
@@ -76,7 +85,7 @@ class StandardInstance():
             print(colored(f"service {self.identifier} Connected to database {database_instance.get_instance_identifier()}", 'green'))
             return True
         else:
-            print(f"service {self.identifier} Failed to connect to database {database_instance.get_instance_identifier()}")
+            print(colored(f"service {self.identifier} Failed to connect to database {database_instance.get_instance_identifier()}","red"))
             return False
 
 

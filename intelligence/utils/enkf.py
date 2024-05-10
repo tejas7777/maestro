@@ -7,6 +7,10 @@ class EnsembleKalmanFilter():
         self.process_noise_cov = process_noise_cov
 
     def simulate_request_rate_dynamics(self, last_request_rate):
+        if last_request_rate <= 0:
+            #print(f"Warning: Non-positive rate detected ({last_request_rate}). Using a small positive value instead.")
+            last_request_rate = 0.1
+
         predicted_requests = np.random.poisson(last_request_rate)
         return predicted_requests
 

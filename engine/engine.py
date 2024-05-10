@@ -1,5 +1,7 @@
 from intelligence.agents.recovery_agent import RecoveryAgent
 from intelligence.agents.fuzzy_agent import FuzzyAgent
+from intelligence.agents.predictive_agent import RecoveryAgentPredictive
+from intelligence.agents.tsk_fuzzy_agent import RecoveryAgentTSK
 from traffic.generator import TrafficGenerator
 import json
 import time
@@ -25,11 +27,12 @@ class Engine:
         self.time_data = TimeData()
         self.path_to_artifact = 'engine/artifacts'
         self.time_policy = None
+        self.config = self.__fetch_config()
         self.meta_layer = MetaLayer()
         self.engine_helper = EngineHelper(meta_layer=self.meta_layer,time_data=self.time_data)
         self.LoadBalancerObj = LoadBalancer()
-        self.services = self.spawn_services(5)
-        self.database_services = self.spawn_database_services(4)
+        self.services = self.spawn_services(self.config["system"].get('initial_instance_count',5))
+        self.database_services = self.spawn_database_services(self.config.get('initial_db_instance_count',2))
         for service in self.services:
             self.LoadBalancerObj.register_service(service)  # Register once
 
@@ -38,10 +41,16 @@ class Engine:
             load_balancer=self.LoadBalancerObj,
             meta_layer=self.meta_layer,
             time=self.time_data,
-            database_services=self.database_services
+            database_services=self.database_services,
+            config=self.config
         )
 
-        self.enviornment.assign_services_to_databases()
+        unconnected_services = self.enviornment.assign_services_to_databases()
+
+        if len(unconnected_services) > 0:
+            #Need to add the list to events queue.
+            self.enviornment.add_unconnected_services_to_events_queue(unconnected_services)
+
 
         self.resource_schedule = {}  # Scheduled resource releases
         self.task_queue = []
@@ -52,14 +61,21 @@ class Engine:
             environment=self.enviornment,
         )
 
-        self.recovery_agent = RecoveryAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
+        #self.recovery_agent = RecoveryAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
         #self.recovery_agent = FuzzyAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
+        #self.recovery_agent = RecoveryAgentPredictive(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
+        self.recovery_agent = RecoveryAgentTSK(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
 
 
     def __fetch_time_policy(self) -> dict:
         with open(f"{self.path_to_artifact}/time.json", 'r') as f:
             self.time_policy = json.load(f)
             return self.time_policy
+        
+    def __fetch_config(self) -> dict[str, dict]:
+        with open(f"{self.path_to_artifact}/config.json", 'r') as f:
+            self.config = json.load(f)
+            return self.config
         
     def spawn_services(self,num) -> list[StandardInstance]:
         services = []
@@ -99,6 +115,7 @@ class Engine:
         self.resource_schedule[(release_hour, release_minute)].append((service, computation, request_id))
 
     def schedule_resource_release_v2(self, current_hour, current_minute, service, computation, request_id):
+        #THIS SOME TIMES THROWS DOMAIN ERROR !!!
         release_minute =  round(math.log1p(computation))
         if release_minute == 0:
             release_minute = 1
@@ -181,20 +198,14 @@ class Engine:
                 service.set_service_down()
                 self.LoadBalancerObj.deregister_service(service)
                 break
-        # self.engine_helper.update_meta_data_after_every_minuite(
-        #     data = {
-        #         "instances": self.services
-        #     }
-        # )
 
         self.enviornment.update_meta_data_after_every_minuite_v2({
             "unprocessed_requests_for_min": unprocessed_requests,
         })
 
-        self.recovery_agent.update_observations({"request_rate": req_count})
+        self.recovery_agent.update_observations({"request_rate": req_count, "avg_cpu_usage": self.enviornment.get_avg_system_load_v2()})
 
-        time.sleep(1)  # Simulate real-time minute passing
-        #self.engine_helper.update_time_in_meta_layer()
+        time.sleep(1)
 
     def run_simulation_for_hour(self, hour_data):
         hourly_requests = hour_data['num_req']
@@ -206,18 +217,7 @@ class Engine:
         
         minutes_passed = 0
 
-        for minute, req_count in enumerate(requests_per_minute, start=1):
-            #schedule_key = (current_hour, minute)
-
-            # if schedule_key in self.resource_schedule:
-            #     for service, computation, request_id in self.resource_schedule.pop(schedule_key, []):
-            #         if service.state == 0:
-            #             pass
-            #         else:
-            #             service.release_resources(computation)
-            #             print(f"Released resources for service {service.identifier} for request {request_id}. Current CPU: {service.current_cpu}")
-
-            
+        for minute, req_count in enumerate(requests_per_minute, start=1):            
             self.simulate_minute(minute, req_count, current_hour)
             total_req += req_count
             minutes_passed += 1

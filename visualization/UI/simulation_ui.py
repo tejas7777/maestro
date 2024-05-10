@@ -9,67 +9,13 @@ class SimulationUI(QMainWindow):
     def __init__(self):
         super().__init__()
         self.redis = redis.Redis(host='localhost', port=6379, db=0)
-        # self.setWindowTitle("Microservices System Simulation")
-        # self.setGeometry(100, 100, 800, 600)
-
-        # # Setup the display area for service status
-        # self.log = QTextEdit(self)
-        # self.log.setGeometry(50, 50, 700, 400)
 
         self.initUI()
 
 
-    # def initUI(self):
-    #     self.setWindowTitle("Microservices System Simulation")
-    #     self.setGeometry(100, 100, 800, 600)  # Window size and position
-    #     #self.setStyleSheet("background-color: #333; color: #eee; font-size: 16px;")
-
-    #     # Central widget with layout
-    #     centralWidget = QWidget(self)
-    #     self.setCentralWidget(centralWidget)
-    #     layout = QVBoxLayout(centralWidget)
-
-    #     # Time display
-    #     self.timeDisplay = QLabel("Time: --:--:--")
-    #     self.timeDisplay.setStyleSheet("font-size: 18px; padding: 10px;")
-    #     layout.addWidget(self.timeDisplay)
-
-    #     # Setup the table for service status
-    #     self.table = QTableWidget()
-    #     self.table.setColumnCount(5)  # Set the number of columns
-    #     self.table.setHorizontalHeaderLabels(['Instance ID', 'CPU Usage', 'Requests Processed', 'Status', 'Instance Type'])
-    #     self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-    #     self.table.setStyleSheet("gridline-color: #ccc;")
-    #     layout.addWidget(self.table)
-
-    # def update_ui(self):
-    #     data = self.get_data()
-
-    #     # Update the time display
-    #     time_data = data.get('time', {}).get('data', {})
-    #     if time_data:
-    #         self.timeDisplay.setText(f"Time: Day {time_data.get('day', '--')}, Hour {time_data.get('hour', '--')}, Minute {time_data.get('minuite', '--')}")
-
-    #     # Clear existing rows
-    #     self.table.setRowCount(0)
-
-    #     # Populate the table with new data
-    #     for instance_id, details in data.get('instances', {}).items():
-    #         row_position = self.table.rowCount()
-    #         self.table.insertRow(row_position)
-
-    #         self.table.setItem(row_position, 0, QTableWidgetItem(instance_id))
-    #         cpu_usage_percentage = (details.get('cpu_usage', 0) / details.get('max_cpu', 500)) * 100
-    #         self.table.setItem(row_position, 1, QTableWidgetItem(f"{cpu_usage_percentage:.2f}%"))
-    #         self.table.setItem(row_position, 2, QTableWidgetItem(str(details.get('requests_processed', 0))))
-    #         status = 'Down' if details.get('status', 0) == 0 else 'Up'
-    #         self.table.setItem(row_position, 3, QTableWidgetItem(status))
-    #         self.table.setItem(row_position, 4, QTableWidgetItem(details.get('instance_type', 'Unknown')))
-
     def initUI(self):
         self.setWindowTitle("Microservices System Simulation")
         self.setGeometry(100, 100, 800, 600)
-        #self.setStyleSheet("background-color: #333; color: #eee; font-size: 16px;")
 
         centralWidget = QWidget(self)
         self.setCentralWidget(centralWidget)
@@ -84,10 +30,17 @@ class SimulationUI(QMainWindow):
         layout.addWidget(self.systemDataDisplay)
 
         self.table = QTableWidget()
-        self.table.setColumnCount(5)
-        self.table.setHorizontalHeaderLabels(['Instance ID', 'Resource Usage', 'Requests Processed', 'Status', 'Instance Type'])
+        self.table.setColumnCount(6)
+        self.table.setHorizontalHeaderLabels(['Instance ID', 'Resource Usage', 'Requests Processed', 'Status', 'Instance Type', 'DB Instance'])
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         layout.addWidget(self.table)
+
+        # Databases Table
+        self.databasesTable = QTableWidget()
+        self.databasesTable.setColumnCount(4)
+        self.databasesTable.setHorizontalHeaderLabels(['DB Instance ID', 'Connections', 'Disk IO', 'Status'])
+        self.databasesTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        layout.addWidget(self.databasesTable)
 
     def update_ui(self):
         data = self.get_data()
@@ -118,7 +71,8 @@ class SimulationUI(QMainWindow):
                 ( details.get('cpu_usage', 0) / details.get('max_cpu', 500) ) * 100,
                 details.get('requests_processed', 0),
                 'Down' if details.get('status', 0) == 0 else 'Up',
-                details.get('instance_type', 'Unknown')
+                details.get('instance_type', 'Unknown'),
+                details.get('database_instance', 'None').split('-')[-1]
             )
             for instance_id, details in data.get('instances', {}).items()
         ]
@@ -134,6 +88,27 @@ class SimulationUI(QMainWindow):
                     self.table.setItem(row_position, col, QTableWidgetItem(f"{item:.2f}%"))
                 else:
                     self.table.setItem(row_position, col, QTableWidgetItem(str(item)))
+
+        #DATA BASE Table
+        databases = [
+            (
+                db_id,
+                details.get('current_connections', 0),
+                details.get('disk_io_usage', 0),
+                details.get('status', '--')
+            )
+            for db_id, details in data.get('database_services', {}).items()
+        ]
+
+        databases.sort(key=lambda x: x[1], reverse=True)
+
+        self.databasesTable.setRowCount(0)
+        for db in databases:
+            row_position = self.databasesTable.rowCount()
+            self.databasesTable.insertRow(row_position)
+            for col, item in enumerate(db):
+                self.databasesTable.setItem(row_position, col, QTableWidgetItem(str(item)))
+
 
 
     def get_data(self):

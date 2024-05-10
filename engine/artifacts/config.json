@@ -1,0 +1,13 @@
+{
+    "system":{
+        "initial_instance_count":4,
+        "initial_db_instance_count": 1,
+        "db_max_connections":5
+    },
+    "agent":{
+        "max_scale_out_instances" : 4,
+        "max_db_scale_out" : 2
+    }
+
+
+}

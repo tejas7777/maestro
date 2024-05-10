@@ -42,7 +42,12 @@ class LoadBalancer:
     def deregister_service(self, service):
         # Remove a service from the list, if necessary
         if service in self.services:
+            index_of_service = self.services.index(service)
             self.services.remove(service)
+            if index_of_service <= self.index:
+                self.index -= 1
+            if self.index >= len(self.services) and self.services:
+                self.index = 0
 
     def predict_requests(self):
         # Use the Kalman Filter to predict the next state (number of requests)
@@ -88,10 +93,3 @@ class LoadBalancer:
         # Update the Kalman Filter with the actual number of requests received
         actual_requests = sum(service.processed_requests for service in self.services)  # Assuming each service tracks its processed requests
         self.update_kalman_filter(actual_requests)
-
-    def get_service_least_connections(self):
-        # Returns the service with the minimum number of active connections
-        if not self.services:
-            return None
-        # Assuming each service has a method `get_active_connection_count()` that returns the current number of connections
-        return min(self.services, key=lambda service: service.request_processed if service.state != 0 else float('inf'))

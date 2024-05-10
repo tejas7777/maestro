@@ -28,7 +28,7 @@ class EngineHelper():
     def add_database_instance_meta_data(self, instance: DatabaseService, scaling_event = 0):
         instance_data = {
             "disk_io_usage":instance.current_disk_io,
-            "requests_processed":instance.current_connections,
+            "current_connections":instance.current_connections,
             "status":instance.state,
             "scaling_events":scaling_event,
             "max_disk_io":instance.max_disk_io,

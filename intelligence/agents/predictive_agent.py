@@ -1,8 +1,8 @@
 from termcolor import colored
 from engine.api.agent_interface import EnviornmentAgentInterface
-from intelligence.utils.enkf import EnsembleKalmanFilter
+from intelligence.utils.enkf_compute import EnsembleKalmanFilterCompute as EnKFCompute
 
-class RecoveryAgent:
+class RecoveryAgentPredictive:
     def __init__(self, agent_id: str, agent_type: str, enviornment_interface: EnviornmentAgentInterface):
         self.agent_id = agent_id
         self.agent_type = agent_type
@@ -10,8 +10,7 @@ class RecoveryAgent:
         self.config = enviornment_interface.get_envrioment_config()
         self.max_scale_out_instances =  self.config["agent"].get("max_scale_out_instances",2)
         self.scale_out_count = 0
-        self.request_rate = 100
-        self.enkf = EnsembleKalmanFilter(ensemble_size=100, initial_state=self.request_rate, process_noise_cov=0.1)
+        self.enkf = EnKFCompute(ensemble_size=100, initial_state=100, process_noise_cov=0.1)
         self.max_db_scale_out = self.config["agent"].get("max_db_scale_out",2)
         self.db_scale_out_count = 0
         self.max_scale_up =  self.config["agent"].get("max_scale_up_instances",4)
@@ -22,11 +21,16 @@ class RecoveryAgent:
     def send_recover_service_request(self,service_identifier: str):
         self.enviornment_interface.restart_service(service_identifier, 2)
         
-    def monitor_service_loads(self):
+    def monitor_service_loads(self, prediction = None):
         #Placeholder scale out logic
-        avg_cpu_usage= self.enviornment_interface.get_avg_system_load()
+        avg_cpu_usage = 0
 
-        print(colored(f"Average system load: {avg_cpu_usage}", "yellow"))
+        if prediction:
+            avg_cpu_usage = prediction
+        else:
+            avg_cpu_usage= self.enviornment_interface.get_avg_system_load()
+
+        print(colored(f"[monitor_service_loads] {avg_cpu_usage}", "yellow"))
 
         max_db_connections_available = self.enviornment_interface.get_max_db_connections()
 
@@ -98,13 +102,12 @@ class RecoveryAgent:
                 self.send_recover_service_request(instance_identifier)
 
         #TEST Make a prediction
-
         self.enkf.predict()
         prediction = self.enkf.get_mean_prediction()
 
         print(colored(f"[recovery_agent][watch][kalman prediction] {prediction}" , "yellow") )
         
-        self.monitor_service_loads()
+        self.monitor_service_loads(prediction=prediction)
 
     def scale_out_instances(self,num = 1):
         self.enviornment_interface.add_new_instances(num)
@@ -116,8 +119,11 @@ class RecoveryAgent:
         self.scale_out_count -= 1
 
     def update_observations(self,data: dict):
-        if data["request_rate"]:
-            self.enkf.update(data["request_rate"])
+        # if data["request_rate"]:
+        #     self.enkf.update(data["request_rate"])
+
+        if data["avg_cpu_usage"]:
+            self.enkf.update(data["avg_cpu_usage"])
 
         
         

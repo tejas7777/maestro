@@ -39,6 +39,9 @@ class MetaLayer:
     def update_instance_data(self,data):
         self.__data["instances"] = data
 
+    def update_db_instance_data(self,data):
+        self.__data["database_services"] = data
+
     def upsert_database_service_data(self,indentifier,data):
         self.__data["database_services"][indentifier] = data
 

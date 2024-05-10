@@ -5,10 +5,10 @@ class Compute():
         self.max_network_bandwidth = 500
 
     def get_standard_compute(self):
-        return 500
+        return 1000
     
     def get_standard_plus_compute(self):
-        return 700
+        return 1800
 
     
 

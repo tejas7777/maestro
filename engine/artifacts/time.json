@@ -7,7 +7,7 @@
             "time_passage": [
                 {
                     "hour": 0,
-                    "num_req": 1000
+                    "num_req": 900
                 },
                 {
                     "hour": 1,
@@ -99,7 +99,7 @@
                 },
                 {
                     "hour": 23,
-                    "num_req": 41
+                    "num_req": 1000
                 }
             ]
         },
@@ -110,7 +110,7 @@
             "time_passage": [
                 {
                     "hour": 0,
-                    "num_req": 45
+                    "num_req": 400
                 },
                 {
                     "hour": 1,
