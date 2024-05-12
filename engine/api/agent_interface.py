@@ -27,6 +27,8 @@ class EnviornmentAgentInterface():
             "time": self.enviornment.time.get_increment_minutes_str(2, self.enviornment.time.hour, self.enviornment.time.day)
         })
 
+        self.broadcast_agent_actions_to_UI(f"Added New Instances")
+
     def scale_up_instances(self,num, type='Standard'):
         self.enviornment.environment_task_queue.append({
             "num": num,
@@ -34,6 +36,8 @@ class EnviornmentAgentInterface():
             "instance_type": type,
             "time": self.enviornment.time.get_increment_minutes_str(1, self.enviornment.time.hour, self.enviornment.time.day)
         })
+
+        self.broadcast_agent_actions_to_UI(f"Scaled Up Instances")
 
     def add_new_db_instances(self, num = 1, unconnected_services = []):
         self.enviornment.environment_task_queue.append({
@@ -109,3 +113,11 @@ class EnviornmentAgentInterface():
             }
         
         return self.enviornment.config
+    
+    def broadcast_agent_actions_to_UI(self,action):
+        # data = {
+        #     "time": self.enviornment.time.get_time(),
+        #     "action": action,
+        # }
+
+        pass

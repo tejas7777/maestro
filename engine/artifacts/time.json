@@ -7,11 +7,11 @@
             "time_passage": [
                 {
                     "hour": 0,
-                    "num_req": 900
+                    "num_req": 1500
                 },
                 {
                     "hour": 1,
-                    "num_req": 17
+                    "num_req": 300
                 },
                 {
                     "hour": 2,

@@ -18,6 +18,7 @@ from engine.utils.time_data import TimeData
 from engine.meta.enviornment import Environment
 from engine.api.agent_interface import EnviornmentAgentInterface
 from services.database_service import DatabaseService
+from engine.utils.statistics_collector import StatisticsCollector
 
 
 class Engine:
@@ -29,10 +30,10 @@ class Engine:
         self.time_policy = None
         self.config = self.__fetch_config()
         self.meta_layer = MetaLayer()
-        self.engine_helper = EngineHelper(meta_layer=self.meta_layer,time_data=self.time_data)
+        self.engine_helper = EngineHelper(meta_layer=self.meta_layer, time_data=self.time_data)
         self.LoadBalancerObj = LoadBalancer()
-        self.services = self.spawn_services(self.config["system"].get('initial_instance_count',5))
-        self.database_services = self.spawn_database_services(self.config.get('initial_db_instance_count',2))
+        self.services = self.spawn_services(self.config["system"].get('initial_instance_count', 5))
+        self.database_services = self.spawn_database_services(self.config.get('initial_db_instance_count', 2))
         for service in self.services:
             self.LoadBalancerObj.register_service(service)  # Register once
 
@@ -51,33 +52,31 @@ class Engine:
             #Need to add the list to events queue.
             self.enviornment.add_unconnected_services_to_events_queue(unconnected_services)
 
-
         self.resource_schedule = {}  # Scheduled resource releases
         self.task_queue = []
 
-
-        
         self.agent_interface = EnviornmentAgentInterface(
             environment=self.enviornment,
         )
 
         #self.recovery_agent = RecoveryAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
         #self.recovery_agent = FuzzyAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
-        #self.recovery_agent = RecoveryAgentPredictive(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
-        self.recovery_agent = RecoveryAgentTSK(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
-
-
+        self.recovery_agent = RecoveryAgentPredictive(agent_id="recovery-agent", agent_type="recovery",
+                                                      enviornment_interface=self.agent_interface)
+        #self.recovery_agent = RecoveryAgentTSK(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
+        self.statistics_collector = StatisticsCollector(meta_layer=self.meta_layer)
+        
     def __fetch_time_policy(self) -> dict:
         with open(f"{self.path_to_artifact}/time.json", 'r') as f:
             self.time_policy = json.load(f)
             return self.time_policy
-        
+
     def __fetch_config(self) -> dict[str, dict]:
         with open(f"{self.path_to_artifact}/config.json", 'r') as f:
             self.config = json.load(f)
             return self.config
-        
-    def spawn_services(self,num) -> list[StandardInstance]:
+
+    def spawn_services(self, num) -> list[StandardInstance]:
         services = []
         for i in range(num):
             new_service = StandardInstance(f'standard-instance-{i}', 500)
@@ -85,8 +84,8 @@ class Engine:
             self.engine_helper.add_intance_meta_data(new_service)
 
         return services
-    
-    def spawn_database_services(self,num) -> list[DatabaseService]:
+
+    def spawn_database_services(self, num) -> list[DatabaseService]:
         databse_services = []
         for i in range(num):
             new_service = DatabaseService(f'database-instance-{i}')
@@ -94,7 +93,7 @@ class Engine:
             self.engine_helper.add_database_instance_meta_data(new_service)
 
         return databse_services
-        
+
     # def assign_services_to_databases(self):
     #     db_index = 0
     #     for service in self.services:
@@ -103,20 +102,18 @@ class Engine:
     #             if not service.connect_to_database(self.database_services[db_index]):
     #                 attempts += 1
     #             db_index = (db_index + 1) % len(self.database_services)
-                    
 
-
-    
     def schedule_resource_release(self, current_hour, current_minute, service, computation, request_id):
         release_minute = (current_minute + round(math.log1p(computation))) % 60
-        release_hour = current_hour + ((current_minute + round(math.log1p(computation))) // 60)  # Calculate which hour it falls into
+        release_hour = current_hour + (
+                    (current_minute + round(math.log1p(computation))) // 60)  # Calculate which hour it falls into
         if (release_hour, release_minute) not in self.resource_schedule:
             self.resource_schedule[(release_hour, release_minute)] = []
         self.resource_schedule[(release_hour, release_minute)].append((service, computation, request_id))
 
     def schedule_resource_release_v2(self, current_hour, current_minute, service, computation, request_id):
         #THIS SOME TIMES THROWS DOMAIN ERROR !!!
-        release_minute =  round(math.log1p(computation))
+        release_minute = round(math.log1p(computation))
         if release_minute == 0:
             release_minute = 1
         time_to_release = self.time_data.get_increment_minutes_str(release_minute, current_hour, self.time_data.day)
@@ -132,7 +129,7 @@ class Engine:
         self.enviornment.environment_task_queue.append(task_obj)
 
     def schedule_database_resource_release(self, current_hour, database, disk_io, request_id):
-        release_minute =  round(math.log1p(disk_io))
+        release_minute = round(math.log1p(disk_io))
         if release_minute == 0:
             release_minute = 1
         time_to_release = self.time_data.get_increment_minutes_str(release_minute, current_hour, self.time_data.day)
@@ -146,7 +143,6 @@ class Engine:
         }
 
         self.enviornment.environment_task_queue.append(task_obj)
-    
 
     def simulate_minute(self, minute, req_count, current_hour):
         self.time_data.minuite = minute
@@ -154,10 +150,10 @@ class Engine:
         print(f"Minute {minute}: {req_count} requests")
         self.recovery_agent.watch()
         self.enviornment.update_environment()
-        
+
         requests = self.traffic_generator.generator(mode="DETERMINISTIC", num=req_count)
         #service: StandardInstance = self.LoadBalancerObj.get_service_least_cpu()
-       #service: StandardInstance = self.LoadBalancerObj.get_service_least_connections()
+        #service: StandardInstance = self.LoadBalancerObj.get_service_least_connections()
 
         unprocessed_requests = 0
 
@@ -177,24 +173,29 @@ class Engine:
                             #print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
                             #print(f"Disk IO USAGE {database.get_instance_identifier()}: {database.current_disk_io} / {database.max_disk_io}")
 
-                            self.schedule_resource_release_v2(service=service, current_minute= minute, current_hour=current_hour, computation=request.computation, request_id=request.id)
-                            self.schedule_database_resource_release(current_hour, database, request.disk_io_usage, request.id)
-                            
+                            self.schedule_resource_release_v2(service=service, current_minute=minute,
+                                                              current_hour=current_hour,
+                                                              computation=request.computation, request_id=request.id)
+                            self.schedule_database_resource_release(current_hour, database, request.disk_io_usage,
+                                                                    request.id)
+
                         else:
                             database.set_service_down()
                             unprocessed_requests += 1
-                            print(colored(f"database {database.get_instance_identifier()} is DOWN","red"))
+                            print(colored(f"database {database.get_instance_identifier()} is DOWN", "red"))
                     else:
                         unprocessed_requests += 1
-                        print(colored(f"Service {service.get_instance_identifier()} not connected to a database instance","red"))
+                        print(
+                            colored(f"Service {service.get_instance_identifier()} not connected to a database instance",
+                                    "red"))
 
                 else:
                     service.process_request(request=request)
-                    #print(f"CPU USAGE {service.get_instance_identifier()}: {service.current_cpu} / {service.max_cpu}")
-                    self.schedule_resource_release_v2(service=service, current_minute= minute, current_hour=current_hour, computation=request.computation, request_id=request.id)
+                    self.schedule_resource_release_v2(service=service, current_minute=minute, current_hour=current_hour,
+                                                      computation=request.computation, request_id=request.id)
             else:
                 unprocessed_requests += 1
-                print(colored(f"Service {service.get_instance_identifier()} is DOWN","red"))
+                print(colored(f"Service {service.get_instance_identifier()} is DOWN", "red"))
                 service.set_service_down()
                 self.LoadBalancerObj.deregister_service(service)
                 break
@@ -203,7 +204,10 @@ class Engine:
             "unprocessed_requests_for_min": unprocessed_requests,
         })
 
-        self.recovery_agent.update_observations({"request_rate": req_count, "avg_cpu_usage": self.enviornment.get_avg_system_load_v2()})
+        self.recovery_agent.update_observations(
+            {"request_rate": req_count, "avg_cpu_usage": self.enviornment.get_avg_system_load_v2()})
+        
+        self.statistics_collector.collect_metrics(self.time_data.get_current_time_str())
 
         time.sleep(1)
 
@@ -214,16 +218,15 @@ class Engine:
         total_req = 0
         current_hour = hour_data['hour']
         self.time_data.hour = current_hour
-        
+
         minutes_passed = 0
 
-        for minute, req_count in enumerate(requests_per_minute, start=1):            
+        for minute, req_count in enumerate(requests_per_minute, start=1):
             self.simulate_minute(minute, req_count, current_hour)
             total_req += req_count
             minutes_passed += 1
 
         print(f"End of Hour {hour_data['hour']} Total {total_req} requests")
-
 
     def run(self):
         time_policy = self.__fetch_time_policy()
@@ -235,7 +238,3 @@ class Engine:
                 self.time_data.day = day
                 for hour_data in day_data['time_passage']:
                     self.run_simulation_for_hour(hour_data)
-                    
-
-
-

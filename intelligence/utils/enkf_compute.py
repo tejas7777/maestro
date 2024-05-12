@@ -1,51 +1,23 @@
-# import numpy as np
-
-# class EnsembleKalmanFilterCompute():
-#     def __init__(self, ensemble_size, initial_state, process_noise_cov):
-#         self.ensemble_size = ensemble_size
-#         self.ensemble = np.array([initial_state + np.random.normal(0, 10) for _ in range(ensemble_size)])
-#         self.process_noise_cov = process_noise_cov
-
-#     def simulate_compute_load_dynamics(self, last_compute_load):
-#         drift = 0.05 * last_compute_load  # Hypothetical drift component
-#         predicted_compute_load = last_compute_load + drift
-#         return np.random.poisson(predicted_compute_load)
-
-#     def predict(self):
-#         for i in range(self.ensemble_size):
-#             self.ensemble[i] = self.simulate_compute_load_dynamics(self.ensemble[i]) + np.random.normal(0, self.process_noise_cov)
-
-#     def update(self, observation):
-#         H = np.array([1])
-#         R = np.array([5])
-#         for i in range(self.ensemble_size):
-#             P = np.var(self.ensemble) + R
-#             K = P * H / (H * P * H + R)
-#             self.ensemble[i] += K * (observation - H * self.ensemble[i])
-
-#     def get_mean_prediction(self):
-#         return np.mean(self.ensemble)
-
 import numpy as np
+
 
 class EnsembleKalmanFilterCompute:
     def __init__(self, ensemble_size, initial_state, process_noise_cov, prediction_steps=2):
         self.ensemble_size = ensemble_size
         self.ensemble = np.array([initial_state + np.random.normal(0, 10) for _ in range(ensemble_size)])
         self.process_noise_cov = process_noise_cov
-        self.prediction_steps = prediction_steps  # Number of steps to predict ahead
+        self.prediction_steps = prediction_steps
 
     def simulate_compute_load_dynamics(self, last_compute_load):
-        """ Simulate the next state based on the last state with some process noise. """
-        drift = 0.05 * last_compute_load  # Hypothetical drift component
-        predicted_compute_load = last_compute_load + drift
+        drift = 0.05 * last_compute_load
+        predicted_compute_load = max(0, last_compute_load + drift)
         return np.random.poisson(predicted_compute_load)
 
     def predict(self):
-        """ Advance state estimates according to the dynamics model. """
-        for _ in range(self.prediction_steps):  # Predict multiple steps ahead
+        for _ in range(self.prediction_steps):
             for i in range(self.ensemble_size):
-                self.ensemble[i] = self.simulate_compute_load_dynamics(self.ensemble[i]) + np.random.normal(0, self.process_noise_cov)
+                self.ensemble[i] = self.simulate_compute_load_dynamics(self.ensemble[i]) + np.random.normal(0,
+                                                                                                            self.process_noise_cov)
 
     def update(self, observation):
         """ Update ensemble members based on observation of actual compute load. """
@@ -66,6 +38,7 @@ class EnsembleKalmanFilterCompute:
         temp_ensemble = np.copy(self.ensemble)
         for _ in range(self.prediction_steps):
             for i in range(self.ensemble_size):
-                temp_ensemble[i] = self.simulate_compute_load_dynamics(temp_ensemble[i]) + np.random.normal(0, self.process_noise_cov)
+                temp_ensemble[i] = self.simulate_compute_load_dynamics(temp_ensemble[i]) + np.random.normal(0,
+                                                                                                            self.process_noise_cov)
             predictions.append(np.mean(temp_ensemble))
         return predictions

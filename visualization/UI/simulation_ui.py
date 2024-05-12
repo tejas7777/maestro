@@ -1,10 +1,35 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTextEdit, QWidget, QVBoxLayout, QLabel, QTableWidget, QTableWidgetItem, QHeaderView
-from PyQt5.QtCore import QTimer, QEventLoop
+from PyQt5.QtCore import QTimer, QEventLoop, Qt
 import redis
 import json
 import math
 
+
+class Toast(QWidget):
+    def __init__(self, message, duration=2000):
+        super().__init__()
+        self.setWindowFlags(Qt.SplashScreen | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)  # Ensures the widget is transparent
+        self.setWindowOpacity(0.9)  # Adjust transparency: 0 to 1 (fully transparent to fully opaque)
+
+        layout = QVBoxLayout()
+        label = QLabel(message, self)
+        label.setStyleSheet(
+            "background-color: rgba(0, 0, 0, 160); color: white; font-size: 16px; padding: 10px; border-radius: 8px;")
+        label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(label)
+        self.setLayout(layout)
+
+        QTimer.singleShot(duration, self.close)
+
+    def display(self, parent):
+        parent_geometry = parent.frameGeometry()
+        self.move(
+            int(parent_geometry.x() + parent_geometry.width() / 2 - self.width() / 2),
+            int(parent_geometry.y() + parent_geometry.height() - self.height() - 10)
+        )
+        self.show()
 class SimulationUI(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -109,6 +134,8 @@ class SimulationUI(QMainWindow):
             for col, item in enumerate(db):
                 self.databasesTable.setItem(row_position, col, QTableWidgetItem(str(item)))
 
+        self.showToast("Example Toast Message: System Updated Successfully")
+
 
 
     def get_data(self):
@@ -123,7 +150,6 @@ class SimulationUI(QMainWindow):
         
         return data
 
-
     def run_ui(self):
         # This is a placeholder for where you might handle a loop or triggers to update the UI
         while True:
@@ -137,6 +163,10 @@ class SimulationUI(QMainWindow):
         loop = QEventLoop()
         QTimer.singleShot(milliseconds, loop.quit)
         loop.exec_()
+
+    def showToast(self, message):
+        toast = Toast(message)
+        toast.display(self)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

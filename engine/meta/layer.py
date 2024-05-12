@@ -9,6 +9,8 @@ class MetaLayer:
             "time":{},
             "system_data":{},
         }
+
+        self.__historical_data = []
         
         self.redis = redis.Redis(host='localhost', port=6379, db=0)
 
@@ -47,14 +49,21 @@ class MetaLayer:
 
     def get_data(self):
         return self.__data
+    
+    def get_historical_data(self):
+        return self.__historical_data
 
     def update_meta_data_cache(self):
+        #self.__historical_data.append(self.__data)
         json_data = json.dumps(self.__data)
         # Store the JSON string in KeyDB
         self.redis.set('maestro_meta_data', json_data)
 
     def update_system_data(self, data):
         self.__data["system_data"] = data
+
+    def add_agent_actions(self,data:dict):
+        self.__data["agent_actions"] = data
 
 
     def __str__(self):
