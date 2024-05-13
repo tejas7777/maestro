@@ -49,7 +49,6 @@ class TrafficGenerator():
             io_mean, io_sd = self.disk_io_units[method]
             disk_io = int(random.gauss(io_mean, io_sd))
             
-            # Introduce a probability that disk I/O is set to zero
             if random.random() > 0.2:  # 20% chance to have zero disk I/O
                 io_mean, io_sd = self.disk_io_units[method]
                 disk_io = int(random.gauss(io_mean, io_sd))
@@ -77,6 +76,7 @@ class TrafficGenerator():
 
 
 
+    #NOTE THIS FUNCTION IS NOT IMPLEMENTED
     def stochastic(self,params) -> list[Request]:
         '''
         A Gaussian Random Variable to generate
