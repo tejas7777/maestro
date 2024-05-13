@@ -4,6 +4,14 @@ from intelligence.utils.tsk_fuzzy import TSKFuzzySystem
 import numpy as np
 import math
 
+'''
+
+NOTE THIS AGENT IS DEPRECATED AND NOT USED IN THE FINAL IMPLEMENTATION
+
+REFER to the final implementation in intelligence/agents/tsk_fuzzy_agent.py
+
+'''
+
 class FuzzyAgent:
     def __init__(self, agent_id: str, agent_type: str, enviornment_interface: EnviornmentAgentInterface):
         self.agent_id = agent_id

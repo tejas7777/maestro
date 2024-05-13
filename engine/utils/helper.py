@@ -3,6 +3,10 @@ from services.instances import StandardInstance
 from engine.utils.time_data import TimeData
 from services.database_service import DatabaseService
 
+'''
+NOTE THIS CLASS IS DEPRECATED AND NOT USED IN THE FINAL IMPLEMENTATION
+'''
+
 class EngineHelper():
     def __init__(self,meta_layer: MetaLayer, time_data: TimeData):
         self.meta_layer = meta_layer

@@ -1,9 +1,10 @@
 from termcolor import colored
 from engine.api.agent_interface import EnviornmentAgentInterface
 from intelligence.utils.enkf_compute import EnsembleKalmanFilterCompute as EnKFCompute
+from engine.utils.statistics_collector import AgentStatisticsCollector
 
 class RecoveryAgentPredictive:
-    def __init__(self, agent_id: str, agent_type: str, enviornment_interface: EnviornmentAgentInterface):
+    def __init__(self, agent_id: str, agent_type: str, enviornment_interface: EnviornmentAgentInterface, agent_statistics_collector: AgentStatisticsCollector = None):
         self.agent_id = agent_id
         self.agent_type = agent_type
         self.enviornment_interface = enviornment_interface
@@ -16,6 +17,7 @@ class RecoveryAgentPredictive:
         self.max_scale_up =  self.config["agent"].get("max_scale_up_instances",4)
         self.scale_up_count = 0
         self.epochs = 0
+        self.agent_statistics_collector = agent_statistics_collector
 
 
     def send_recover_service_request(self,service_identifier: str):
@@ -106,6 +108,9 @@ class RecoveryAgentPredictive:
         prediction = self.enkf.get_mean_prediction()
 
         print(colored(f"[recovery_agent][watch][kalman prediction] {prediction}" , "yellow") )
+
+        if self.agent_statistics_collector:
+            self.agent_statistics_collector.collect_kalman_prediction_data(minuite=self.enviornment_interface.get_current_time(), prediction=prediction)
         
         self.monitor_service_loads(prediction=prediction)
 
@@ -124,6 +129,7 @@ class RecoveryAgentPredictive:
 
         if data["avg_cpu_usage"]:
             self.enkf.update(data["avg_cpu_usage"])
+
 
         
         

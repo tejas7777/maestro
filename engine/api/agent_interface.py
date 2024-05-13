@@ -121,3 +121,6 @@ class EnviornmentAgentInterface():
         # }
 
         pass
+
+    def get_current_time(self):
+        return self.enviornment.time.get_current_time_str()

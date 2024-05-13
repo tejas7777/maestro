@@ -1,3 +1,7 @@
+'''
+NOTE THIS CLASS IS DEPRECATED AND NOT USED IN THE FINAL IMPLEMENTATION
+'''
+
 class ExecutorPipeline():
     def __init__(self, execution_pipeline):
         self.process_execution_pipeline:list[dict] = []

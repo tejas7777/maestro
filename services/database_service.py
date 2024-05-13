@@ -1,7 +1,7 @@
 class DatabaseService:
 
-    def __init__(self, identifier):
-        self.max_connections = 10
+    def __init__(self, identifier, max_connections = 10):
+        self.max_connections = max_connections
         self.max_disk_io = 500
         self.current_connections = 0
         self.current_disk_io = 0

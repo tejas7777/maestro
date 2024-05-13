@@ -10,8 +10,8 @@ class Toast(QWidget):
     def __init__(self, message, duration=2000):
         super().__init__()
         self.setWindowFlags(Qt.SplashScreen | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)  # Ensures the widget is transparent
-        self.setWindowOpacity(0.9)  # Adjust transparency: 0 to 1 (fully transparent to fully opaque)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowOpacity(0.9)
 
         layout = QVBoxLayout()
         label = QLabel(message, self)
@@ -30,6 +30,7 @@ class Toast(QWidget):
             int(parent_geometry.y() + parent_geometry.height() - self.height() - 10)
         )
         self.show()
+
 class SimulationUI(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -49,7 +50,7 @@ class SimulationUI(QMainWindow):
         self.timeDisplay = QLabel("Time: --:--:--")
         self.timeDisplay.setStyleSheet("font-size: 18px; padding: 10px;")
         layout.addWidget(self.timeDisplay)
-        # System-wide data display
+        #System-wide data display
         self.systemDataDisplay = QLabel("Loading...")
         self.systemDataDisplay.setStyleSheet("font-size: 16px; padding: 10px;")
         layout.addWidget(self.systemDataDisplay)
@@ -60,7 +61,7 @@ class SimulationUI(QMainWindow):
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         layout.addWidget(self.table)
 
-        # Databases Table
+        #Databases Table
         self.databasesTable = QTableWidget()
         self.databasesTable.setColumnCount(4)
         self.databasesTable.setHorizontalHeaderLabels(['DB Instance ID', 'Connections', 'Disk IO', 'Status'])
@@ -70,7 +71,6 @@ class SimulationUI(QMainWindow):
     def update_ui(self):
         data = self.get_data()
 
-        # Update the time and system data display
         time_data = data.get('time', {}).get('data', {})
         self.timeDisplay.setText(f"Time: Day {time_data.get('day', '--')}, Hour {time_data.get('hour', '--')}, Minute {time_data.get('minuite', '--')}")
         system_data = data.get('system_data', {})
@@ -81,15 +81,19 @@ class SimulationUI(QMainWindow):
         else:
             cpu_info = f"Avg CPU: {avg_cpu} "
 
+        drop_rate = system_data.get('request_drop_rate', '--')
+        if drop_rate != '--':
+            #Limit the drop rate to two decimals
+            drop_rate = round(float(drop_rate), 2)
 
         system_info = (f"{cpu_info}, "
                 f"Total Requests Processed: {system_data.get('total_requests_processed', '--')}, "
                 # f"Unprocessed Requests: {system_data.get('total_requests_unprocessed', '--')}, "
-                f"Request Drop Rate %: {system_data.get('request_drop_rate', '--')}"
+                f"Request Drop Rate %: {drop_rate}"
                 )
         self.systemDataDisplay.setText(f"{system_info}")
 
-        # Prepare and sort data list for the table
+        #Prepare and sort data list for the table
         instances = [
             (
                 instance_id,
@@ -97,19 +101,19 @@ class SimulationUI(QMainWindow):
                 details.get('requests_processed', 0),
                 'Down' if details.get('status', 0) == 0 else 'Up',
                 details.get('instance_type', 'Unknown'),
-                details.get('database_instance', 'None').split('-')[-1]
+                details.get('database_instance', 'None')
             )
             for instance_id, details in data.get('instances', {}).items()
         ]
         instances.sort(key=lambda x: x[1], reverse=True)  # Sort by CPU usage
 
-        # Update the table
+        #Update the table
         self.table.setRowCount(0)
         for instance in instances:
             row_position = self.table.rowCount()
             self.table.insertRow(row_position)
             for col, item in enumerate(instance):
-                if col == 1:  # Format CPU usage as percentage
+                if col == 1:
                     self.table.setItem(row_position, col, QTableWidgetItem(f"{item:.2f}%"))
                 else:
                     self.table.setItem(row_position, col, QTableWidgetItem(str(item)))
@@ -134,16 +138,15 @@ class SimulationUI(QMainWindow):
             for col, item in enumerate(db):
                 self.databasesTable.setItem(row_position, col, QTableWidgetItem(str(item)))
 
-        self.showToast("Example Toast Message: System Updated Successfully")
 
 
 
     def get_data(self):
-        # Fetch data from KeyDB
+        #Fetch data from KeyDB
         json_data = self.redis.get('maestro_meta_data')
         print(f"maestro_meta_data",json_data)
         if json_data:
-            # Deserialize the JSON string into a dictionary
+            #Deserialize the JSON string into a dictionary
             data = json.loads(json_data)
         else:
             data = {}
@@ -151,10 +154,8 @@ class SimulationUI(QMainWindow):
         return data
 
     def run_ui(self):
-        # This is a placeholder for where you might handle a loop or triggers to update the UI
         while True:
             self.update_ui()
-            # Sleep for a certain interval before updating again
             QApplication.processEvents()
             QApplication.processEvents()
             self.delay(1000)

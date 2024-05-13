@@ -19,6 +19,11 @@ from engine.meta.enviornment import Environment
 from engine.api.agent_interface import EnviornmentAgentInterface
 from services.database_service import DatabaseService
 from engine.utils.statistics_collector import StatisticsCollector
+from engine.utils.statistics_collector import AgentStatisticsCollector
+
+'''
+THIS IS THE MIND OF THE SYSTEM
+'''
 
 
 class Engine:
@@ -33,7 +38,7 @@ class Engine:
         self.engine_helper = EngineHelper(meta_layer=self.meta_layer, time_data=self.time_data)
         self.LoadBalancerObj = LoadBalancer()
         self.services = self.spawn_services(self.config["system"].get('initial_instance_count', 5))
-        self.database_services = self.spawn_database_services(self.config.get('initial_db_instance_count', 2))
+        self.database_services = self.spawn_database_services(self.config["system"].get('initial_db_instance_count', 2))
         for service in self.services:
             self.LoadBalancerObj.register_service(service)  # Register once
 
@@ -59,12 +64,18 @@ class Engine:
             environment=self.enviornment,
         )
 
-        #self.recovery_agent = RecoveryAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
-        #self.recovery_agent = FuzzyAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
-        self.recovery_agent = RecoveryAgentPredictive(agent_id="recovery-agent", agent_type="recovery",
-                                                      enviornment_interface=self.agent_interface)
-        #self.recovery_agent = RecoveryAgentTSK(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface)
         self.statistics_collector = StatisticsCollector(meta_layer=self.meta_layer)
+        self.agent_statistics_collector = AgentStatisticsCollector(meta_layer=self.meta_layer)
+
+        self.agents = [
+            RecoveryAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface),
+            RecoveryAgentPredictive(agent_id="recovery-agent", agent_type="recovery",
+                                                      enviornment_interface=self.agent_interface),
+            FuzzyAgent(agent_id="recovery-agent", agent_type="recovery", enviornment_interface=self.agent_interface),
+        ]
+        #Selecting Predicitve Agent
+        self.recovery_agent = self.agents[1]
+
         
     def __fetch_time_policy(self) -> dict:
         with open(f"{self.path_to_artifact}/time.json", 'r') as f:
@@ -88,25 +99,18 @@ class Engine:
     def spawn_database_services(self, num) -> list[DatabaseService]:
         databse_services = []
         for i in range(num):
-            new_service = DatabaseService(f'database-instance-{i}')
+            new_service = DatabaseService(f'database-instance-{i}', max_connections=self.config["system"].get('db_max_connections', 5))
             databse_services.append(new_service)
             self.engine_helper.add_database_instance_meta_data(new_service)
 
         return databse_services
 
-    # def assign_services_to_databases(self):
-    #     db_index = 0
-    #     for service in self.services:
-    #         attempts = 0
-    #         while not service.database_instance and attempts < len(self.database_services):
-    #             if not service.connect_to_database(self.database_services[db_index]):
-    #                 attempts += 1
-    #             db_index = (db_index + 1) % len(self.database_services)
 
+    #NOTE THIS FUNCTION IS DEPRECATED
     def schedule_resource_release(self, current_hour, current_minute, service, computation, request_id):
         release_minute = (current_minute + round(math.log1p(computation))) % 60
         release_hour = current_hour + (
-                    (current_minute + round(math.log1p(computation))) // 60)  # Calculate which hour it falls into
+                    (current_minute + round(math.log1p(computation))) // 60)  #Calculate which hour it falls into
         if (release_hour, release_minute) not in self.resource_schedule:
             self.resource_schedule[(release_hour, release_minute)] = []
         self.resource_schedule[(release_hour, release_minute)].append((service, computation, request_id))
@@ -146,20 +150,17 @@ class Engine:
 
     def simulate_minute(self, minute, req_count, current_hour):
         self.time_data.minuite = minute
-        # print(f"TEST Meta Layer: {self.meta_layer.get_data()}")
         print(f"Minute {minute}: {req_count} requests")
         self.recovery_agent.watch()
         self.enviornment.update_environment()
 
         requests = self.traffic_generator.generator(mode="DETERMINISTIC", num=req_count)
-        #service: StandardInstance = self.LoadBalancerObj.get_service_least_cpu()
-        #service: StandardInstance = self.LoadBalancerObj.get_service_least_connections()
 
         unprocessed_requests = 0
 
         for request in requests:
-            service: StandardInstance = self.LoadBalancerObj.get_service_round_robin()  # Getting a new service for each request
-
+            service: StandardInstance = self.LoadBalancerObj.get_service_round_robin()
+            
             if not service:
                 print(f"No available service")
                 break
@@ -208,6 +209,8 @@ class Engine:
             {"request_rate": req_count, "avg_cpu_usage": self.enviornment.get_avg_system_load_v2()})
         
         self.statistics_collector.collect_metrics(self.time_data.get_current_time_str())
+        self.agent_statistics_collector.collect_kalman_actual_data(minuite=self.time_data.get_current_time_str(),
+                                                                   actual=self.enviornment.get_avg_system_load_v2())
 
         time.sleep(1)
 
