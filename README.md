@@ -1,6 +1,6 @@
 # Maestro - Microservices Orchestration Simulation Framework for Autonomous Agents
 
-![Maestro Architecture](https://raw.githubusercontent.com/tejas7777/maestro/main/images/maestro-architecture.png)
+![Maestro Architecture](images/maestro-architecture.png)
 
 ## Project Overview
 
