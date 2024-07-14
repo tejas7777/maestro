@@ -1,5 +1,7 @@
 # Maestro - Microservices Orchestration Simulation Framework for Autonomous Agents
 
+![Logo](https://github.com/tejas7777/maestro/blob/main/images/maestro-architecture.png)
+
 ## Project Overview
 
 This project simulates a microservices architecture to explore the dynamics of network traffic and resource utilization across multiple services. It's designed to test various scenarios involving CPU load, I/O bandwidth, and network traffic, providing insights into the behavior of loosely coupled systems under different operational conditions.
@@ -24,7 +26,7 @@ This project simulates a microservices architecture to explore the dynamics of n
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/tejas7777/maestro
+   git clone https://github.com/tejas7777/maestro.git
 
 2. Run KeyDB server
     ```bash
