@@ -6,6 +6,8 @@
 
 This project simulates a microservices architecture to explore the dynamics of network traffic and resource utilization across multiple services. It's designed to test various scenarios involving CPU load, I/O bandwidth, and network traffic, providing insights into the behavior of loosely coupled systems under different operational conditions.
 
+![Description](images/maestro-working-gif.gif)
+
 ## Features
 
 - **Traffic Generator**: Simulates various types of network traffic to test the microservices' responses to different loads.
